@@ -6,7 +6,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "./pages/home";
 import Employer from "./pages/employer";
-import miTablero from "./pages/miTablero";
 import Employee from "./pages/employee";
 
 const Stack = createStackNavigator();
@@ -21,7 +20,6 @@ export default function App() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Employer" component={Employer} />
       <Stack.Screen name="Employee" component={Employee} />
-      <Stack.Screen name="miTablero" component={miTablero} />
     </Stack.Navigator>
   </NavigationContainer>
   );
