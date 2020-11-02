@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import CrudEmployees from '../crudEmployees';
+import AMEmployees from '../AMEmployees';
 
 export default function Home({ navigation}) {
 
@@ -29,7 +29,7 @@ export default function Home({ navigation}) {
         // </View>
         <View>
             <ScrollView>
-                <CrudEmployees></CrudEmployees>
+                <AMEmployees></AMEmployees>
             </ScrollView>
         </View>
     )
