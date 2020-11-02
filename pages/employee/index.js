@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, Alert, Button, Image } from 'react-native';
 
 
-export default function Employee() {
+export default function Employee({name}) {
 
     return (
       <View style={styles.container}>
@@ -17,7 +17,7 @@ export default function Employee() {
       </View>
       
       <View style={styles.body}>
-        <Text>Datos del empleado</Text>
+        <Text>{name.first} | {name.last}</Text>
       </View>
 
       <View style={styles.footer}>
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 0.7,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: 'orange'
   },
   headerLeft : {
     flex: 1,
