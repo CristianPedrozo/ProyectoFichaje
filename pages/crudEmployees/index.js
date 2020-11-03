@@ -1,8 +1,9 @@
+
+import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
-import Axios from 'axios';
-
+import FormEmployee from '../FormEmployee/index';
 
 const Item=({empleado})=>{
     return(
@@ -17,45 +18,34 @@ const Item=({empleado})=>{
     )
 }
 
-const CrudEmployees = ()=>{
+// const Stack = createStackNavigator();
+export default function CrudEmployees (){
 
-    const [empleados, setEmpleados] =useState([]);
+    const [empleados, setEmpleados] = useState([]);
 
     useEffect(() => {
-        getEmpleados();
-
-    }, []);
-
-    const getEmpleados = () => {
-        Axios.get('http://192.168.43.228:3000/api/usuarios')
-        .then(res => {
-
-            console.log('res get Empleados:', res); 
-            setEmpleados(res.data);
-        })
-        .catch(function(error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message);
-        });
-    };
+        fetch('https://tranquil-dusk-24173.herokuapp.com/api/usuarios')
+          .then((response) => response.json())
+          .then((json) => setEmpleados(json))
+          .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
+      }, []);
 
     return (
-        <View style={styles.container}> 
-            <Text style={styles.textTitle}>ABM Empleados</Text>
-            <TextInput style={styles.input} placeholder ="Nombre"/>
-            <TextInput style={styles.input} placeholder ="Email"/>
-            <TextInput style={styles.input} placeholder ="Direccion"/>
-            <Button title="Guardar"/>
-            <View style={styles.line}/>
-            {empleados.map(empleado =>{
-                return <Item key={empleado.key} empleado={empleado} />
-            })}
 
+                <View style={styles.container}> 
+                    <Button title="Crear Empleado" 
+                        onPress={()=> {
+                        navigation.navigate("FormEmployee")
+                        }} />
+                    <View style={styles.line}/>
+                    
+                    {empleados.map(empleado =>{
+                        return <Item key={empleado.key} empleado={empleado} />
+                    })}
+                </View>
 
-        </View>
     )
 }
-
-export default CrudEmployees
 
 const styles = StyleSheet.create({
 

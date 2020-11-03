@@ -7,6 +7,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./pages/home";
 import Employer from "./pages/employer";
 import Employee from "./pages/employee";
+import FormEmployee from "./pages/FormEmployee";
+import CrudEmployees from './pages/crudEmployees';
+import AMEmployees from "./pages/AMEmployees";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -16,10 +19,14 @@ export default function App() {
     //   <StatusBar style="auto" />
     // </View>
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="AM Empleado">
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Employer" component={Employer} />
+      <Stack.Screen name="ABM Empleados" component={CrudEmployees} />
+      <Stack.Screen name="Alta Empleado" component={FormEmployee} />
+      <Stack.Screen name="AM Empleado" component={AMEmployees} />
+      {/* <Stack.Screen name="Employer" component={Employer} />
       <Stack.Screen name="Employee" component={Employee} />
+      <Stack.Screen name="Employee" component={FormEmployee} /> */}
     </Stack.Navigator>
   </NavigationContainer>
   );
