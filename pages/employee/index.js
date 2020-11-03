@@ -17,7 +17,9 @@ export default function Employee({name}) {
       </View>
       
       <View style={styles.body}>
-        <Text>{name.first} | {name.last}</Text>
+        <Text>
+          {name.first} {name.last}
+        </Text>
       </View>
 
       <View style={styles.footer}>
