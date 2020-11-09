@@ -2,9 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
 
-const FormEmpleado = ({empleado})=>{
+const FormEmployee = ({route})=>{
+    const {empleado} = route.params;
+    
     return (
         <View style={styles.container}> 
+        {   
+            (empleado) ?
+            <View>
             <TextInput style={styles.input} placeholder ="Nombres">{empleado.name.first}</TextInput>
             <TextInput style={styles.input} placeholder ="Apellidos">{empleado.name.last}</TextInput>
             <TextInput style={styles.input} placeholder ="Email">{empleado.email}</TextInput>
@@ -14,13 +19,29 @@ const FormEmpleado = ({empleado})=>{
             <TextInput style={styles.input} placeholder ="Depto.">{empleado.adress.apartment}</TextInput>
             <TextInput style={styles.input} placeholder ="Telefono">{empleado.phone}</TextInput>
             <TextInput style={styles.input} placeholder ="Horario Entrada">{empleado.checkIn}</TextInput>
-            <TextInput style={styles.input} placeholder ="Horario Salida">{empleado.checkOut}</TextInput>
+            <TextInput style={styles.input} placeholder ="Horario Salida">{empleado.checkOut}</TextInput> 
             <Button title="Guardar"/>
+            </View>
+            :
+            <View>
+            <TextInput style={styles.input} placeholder ="Nombres"></TextInput>
+            <TextInput style={styles.input} placeholder ="Apellidos"></TextInput>
+            <TextInput style={styles.input} placeholder ="Email"></TextInput>
+            <TextInput style={styles.input} placeholder ="Calle"></TextInput>
+            <TextInput style={styles.input} placeholder ="Número"></TextInput>
+            <TextInput style={styles.input} placeholder ="Piso"></TextInput>
+            <TextInput style={styles.input} placeholder ="Depto."></TextInput>
+            <TextInput style={styles.input} placeholder ="Telefono"></TextInput>
+            <TextInput style={styles.input} placeholder ="Horario Entrada"></TextInput>
+            <TextInput style={styles.input} placeholder ="Horario Salida"></TextInput>
+            <Button title="Guardar"/>
+            </View>
+        }
         </View>
     )
 }
 
-export default FormEmpleado
+export default FormEmployee
 
 const styles = StyleSheet.create({
 

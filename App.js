@@ -19,15 +19,16 @@ export default function App() {
     //   <StatusBar style="auto" />
     // </View>
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="AM Empleado">
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="ABM Empleados" component={CrudEmployees} />
-      <Stack.Screen name="Alta Empleado" component={FormEmployee} />
-      <Stack.Screen name="AM Empleado" component={AMEmployees} />
-      {/* <Stack.Screen name="Employer" component={Employer} />
-      <Stack.Screen name="Employee" component={Employee} />
-      <Stack.Screen name="Employee" component={FormEmployee} /> */}
-    </Stack.Navigator>
+      <Stack.Navigator initialRouteName="ABM Empleados">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="ABM Empleados" component={CrudEmployees} />
+        <Stack.Screen name="Alta Empleado" component={FormEmployee} />
+        <Stack.Screen name="AM Empleado" component={AMEmployees} />
+        <Stack.Screen name="Formulario Empleado" component={FormEmployee} />
+        {/* <Stack.Screen name="Employer" component={Employer} />
+        <Stack.Screen name="Employee" component={Employee} />
+        <Stack.Screen name="Employee" component={FormEmployee} /> */}
+      </Stack.Navigator>
   </NavigationContainer>
   );
 }
