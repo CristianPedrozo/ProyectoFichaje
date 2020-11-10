@@ -19,12 +19,12 @@ const FormEmployee = ({route})=>{
     const [checkIn, setCheckIn] = useState(0)
     const [checkOut, setCheckOut] = useState(0)
     
-    let emp = {
+    const emp = {
         name: { first: first, last: last },
         adress: {
           street: street,
-          number: number,
-          floor: floor,
+          number: parseInt(number),
+          floor: parseInt(floor),
           apartment: apartment,
         },
         phone: phone,
@@ -32,25 +32,26 @@ const FormEmployee = ({route})=>{
         jwt: null,
         imagePatch: null,
         isAdmin: false,
-        checkIn: checkIn,
-        checkOut: checkOut
-}
+        checkIn: parseInt(checkIn),
+        checkOut: parseInt(checkOut)
+    }
+
     function createEmployee(){
         const headers = new Headers();
-
+        console.log(emp);
         headers.append("Content-type", "application/json")
 
         const requestOptions = {
             method: "POST",
             headers: headers,
-            body: JSON.stringify({emp})
+            body: JSON.stringify(emp)
         }
 
         fetch(`${API_BASE_URL}/usuarios/`, requestOptions)
         .then(res => {
             console.log("Data antes de tratamiento: ", res)
             return res.json()
-        }).then(data)
+        })
         .catch(err => {
             console.error("Error en la comunicacion: ", err)
         })
@@ -71,7 +72,8 @@ const FormEmployee = ({route})=>{
             <TextInput style={styles.input} placeholder ="Telefono">{empleado.phone}</TextInput>
             <TextInput style={styles.input} placeholder ="Horario Entrada">{empleado.checkIn}</TextInput>
             <TextInput style={styles.input} placeholder ="Horario Salida">{empleado.checkOut}</TextInput> 
-            <Button title="Guardar"/>
+            <Button title="Modificar"/>
+            <Button title="Eliminar"/>
             </View>
             :
             <View>
@@ -85,7 +87,7 @@ const FormEmployee = ({route})=>{
             <TextInput style={styles.input} placeholder ="Telefono" onChangeText={setPhone}></TextInput>
             <TextInput style={styles.input} placeholder ="Horario Entrada" onChangeText={setCheckIn}></TextInput>
             <TextInput style={styles.input} placeholder ="Horario Salida" onChangeText={setCheckOut}></TextInput>
-            <Button title="Crear Empleado" onPress={console.log(emp)}/>
+            <Button title="Crear Empleado" onPress={createEmployee}/>
             </View>
         }
         </View>
