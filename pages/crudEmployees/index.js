@@ -44,7 +44,7 @@ export default function CrudEmployees({ navigation }) {
             <View style={styles.line} />
 
             {empleados.map(empleado => {
-                return <Item key={empleado.key} empleado={empleado} onPress={() => {navigation.navigate("Formulario Empleado", {empleado: empleado})
+                return <Item key={empleado._id} empleado={empleado} onPress={() => {navigation.navigate("Formulario Empleado", {empleado: empleado})
                 }}/>
             })}
         </ScrollView>
