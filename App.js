@@ -10,6 +10,8 @@ import Employee from "./pages/employee";
 import FormEmployee from "./pages/FormEmployee";
 import CrudEmployees from './pages/crudEmployees';
 import AMEmployees from "./pages/AMEmployees";
+import createEmployee from "./pages/createEmployee"
+import modifyEmployee from "./pages/modifyEmployee"
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -25,6 +27,8 @@ export default function App() {
         <Stack.Screen name="Alta Empleado" component={FormEmployee} />
         <Stack.Screen name="AM Empleado" component={AMEmployees} />
         <Stack.Screen name="Formulario Empleado" component={FormEmployee} />
+        <Stack.Screen name="Create Employee" component={createEmployee} />
+        <Stack.Screen name="Modify Employee" component={modifyEmployee} />
         {/* <Stack.Screen name="Employer" component={Employer} />
         <Stack.Screen name="Employee" component={Employee} />
         <Stack.Screen name="Employee" component={FormEmployee} /> */}

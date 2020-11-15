@@ -4,7 +4,7 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-export default function Home({ navigation}) {
+export default function Home({navigation}) {
 
     return(
         // <View style={styles.container}>

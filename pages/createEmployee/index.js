@@ -4,9 +4,8 @@ import { Button, StyleSheet, Text, TextInput, View, Alert, Image } from 'react-n
 
 const API_BASE_URL = `https://tranquil-dusk-24173.herokuapp.com/api`
 
-const FormEmployee = ({route})=>{
-    //route.params para modificación
-    const {empleado} = route.params;
+const createEmployee = ()=>{
+
 //Para el alta
     
     const [first,setFirst] = useState("")
@@ -20,9 +19,6 @@ const FormEmployee = ({route})=>{
     const [checkIn, setCheckIn] = useState(0)
     const [checkOut, setCheckOut] = useState(0)
  
-    // Para modificar
-    // const [employee, setEmployee] = useState({})
-    
     const emp = {
         name: { first: first, last: last },
         adress: {
@@ -40,36 +36,7 @@ const FormEmployee = ({route})=>{
         checkOut: parseInt(checkOut)
     }
 
-    
-    // // console.log(employee)
-    // const selectEmployee = {
-    //     // setFirst(employee.name.first)
-    //     // setLast(employee.name.last)
-    //     // setStreet(employee.adress.street)
-    //     // setFloor(employee.adress.floor)
-    //     // setApartment(employee.adress.apartment)
-    //     // setPhone(employee.name)
-    //     // setEmail(employee.email)
-    //     // setCheckIn(employee.checkIn)
-    //     // setCheckOut(employee.checkOut)
-
-    //     name: { first: setFirst(empleado.name.first), last: setLast(empleado.name.last)},
-    //     adress: {
-    //       street: setStreet(empleado.adress.street),
-    //       number: parseInt(setNumber(empleado.adress.floor)),
-    //       floor: parseInt(setFloor(empleado.adress.floor)),
-    //       apartment: setApartment(empleado.adress.apartment),
-    //     },
-    //     phone: setPhone(empleado.name),
-    //     email: setEmail(empleado.email),
-    //     jwt: null,
-    //     imagePatch: null,
-    //     isAdmin: false,
-    //     checkIn: parseInt(setCheckIn(empleado.checkIn)),
-    //     checkOut: parseInt(setCheckOut(empleado.checkOut))
-    // }
-    
-    function createEmployee(){
+    function create(){
         const headers = new Headers();
         console.log(emp);
         headers.append("Content-type", "application/json")
@@ -90,50 +57,8 @@ const FormEmployee = ({route})=>{
         })
     }
 
-    // //Function UPDATE EMPLOYEE
-    // function updateEmployee(){
-    //     const headers = new Headers();
-    //     console.log(emp);
-    //     headers.append("Content-type", "application/json")
-
-    //     const requestOptions = {
-    //         method: "PUT",
-    //         headers: headers,
-    //         body: JSON.stringify(emp)
-    //     }
-
-    //     fetch(`${API_BASE_URL}/usuarios/${empleado._id}`, requestOptions)
-    //     .then(res => {
-    //         console.log("Data antes de tratamiento: ", res)
-    //         return res.json()
-    //     })
-    //     .catch(err => {
-    //         console.error("Error en la comunicacion: ", err)
-    //     })
-    // }
-
-
     return (
         <View style={styles.container}> 
-        {   
-            (empleado) ?
-            <View>
-            <TextInput style={styles.input} placeholder ="Nombres" >{empleado.name.first}</TextInput>
-            <TextInput style={styles.input} placeholder ="Apellidos" >{empleado.name.last}</TextInput>
-            <TextInput style={styles.input} placeholder ="Email">{empleado.email}</TextInput>
-            <TextInput style={styles.input} placeholder ="Calle" >{empleado.adress.street}</TextInput>
-            <TextInput style={styles.input} placeholder ="Número" >{empleado.adress.number}</TextInput>
-            <TextInput style={styles.input} placeholder ="Piso" >{empleado.adress.floor}</TextInput>
-            <TextInput style={styles.input} placeholder ="Depto.">{empleado.adress.apartment}</TextInput>
-            <TextInput style={styles.input} placeholder ="Telefono" >{empleado.phone}</TextInput>
-            <TextInput style={styles.input} placeholder ="Horario Entrada">{empleado.checkIn}</TextInput>
-            <TextInput style={styles.input} placeholder ="Horario Salida">{empleado.checkOut}</TextInput> 
-            <View style={styles.fixToText}>
-                <Button title="Modificar" />
-                <Button title="Eliminar"/>
-            </View>
-            </View>
-            :
             <View>
             <TextInput style={styles.input} placeholder ="Nombres" onChangeText={setFirst}></TextInput>
             <TextInput style={styles.input} placeholder ="Apellidos" onChangeText={setLast}></TextInput>
@@ -145,14 +70,13 @@ const FormEmployee = ({route})=>{
             <TextInput style={styles.input} placeholder ="Telefono" onChangeText={setPhone}></TextInput>
             <TextInput style={styles.input} placeholder ="Horario Entrada" onChangeText={setCheckIn}></TextInput>
             <TextInput style={styles.input} placeholder ="Horario Salida" onChangeText={setCheckOut}></TextInput>
-            <Button title="Crear Empleado" onPress={createEmployee}/>
+            <Button title="Crear Empleado" onPress={create}/>
             </View>
-        }
         </View>
     )
 }
 
-export default FormEmployee
+export default createEmployee
 
 const styles = StyleSheet.create({
 
