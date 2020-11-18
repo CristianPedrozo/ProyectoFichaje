@@ -2,7 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
 
-const API_BASE_URL = `https://tranquil-dusk-24173.herokuapp.com/api`
+// const API_BASE_URL = `https://tranquil-dusk-24173.herokuapp.com/api`
+const API_BASE_URL = 'https://stark-atoll-54719.herokuapp.com/api'
+// const API_BASE_URL = 'https://tp2-nodejs.herokuapp.com/api'
 
 const modifyEmployee = ({route,navigation})=>{
     //route.params para modificación
@@ -40,7 +42,7 @@ const modifyEmployee = ({route,navigation})=>{
 
     function modify(){
         const headers = new Headers();
-        console.log(emp);
+        // console.log(emp);
         headers.append("Content-type", "application/json")
 
         const requestOptions = {
@@ -51,8 +53,8 @@ const modifyEmployee = ({route,navigation})=>{
 
         fetch(`${API_BASE_URL}/usuarios/${empleado._id}`, requestOptions)
         .then(res => {
-            console.log("Data antes de tratamiento: ", res)
-            return res.json()
+            console.log("Data antes de tratamiento: ", JSON.stringify(res))
+            return res
         })
         .catch(err => {
             console.error("Error en la comunicacion: ", err)
@@ -73,8 +75,8 @@ const modifyEmployee = ({route,navigation})=>{
 
         fetch(`${API_BASE_URL}/usuarios/${empleado._id}`, requestOptions)
         .then(res => {
-            console.log("Data antes de tratamiento: ", res)
-            return res.json()
+            console.log("Data antes de tratamiento: ", JSON.stringify(res))
+            return res
         })
         .catch(err => {
             console.error("Error en la comunicacion: ", err)

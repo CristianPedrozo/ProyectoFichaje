@@ -4,7 +4,6 @@ import { ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
-import FormEmployee from '../FormEmployee/index';
 
 const Item = ({empleado, onPress}) => {
 
@@ -23,13 +22,14 @@ const Item = ({empleado, onPress}) => {
     )
 }
 
-// const Stack = createStackNavigator();
 export default function CrudEmployees({ navigation }) {
 
     const [empleados, setEmpleados] = useState([]);
 
     useEffect(() => {
-        fetch('https://tranquil-dusk-24173.herokuapp.com/api/usuarios/')
+        // fetch('https://tranquil-dusk-24173.herokuapp.com/api/usuarios/') ->andaba
+        fetch('https://stark-atoll-54719.herokuapp.com/api/usuarios/') 
+        // fetch('https://tp2-nodejs.herokuapp.com/api/usuarios')
             .then((response) => response.json())
             .then((json) => setEmpleados(json))
             .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
@@ -39,14 +39,12 @@ export default function CrudEmployees({ navigation }) {
 
         <ScrollView style={styles.container}>
             <Button title="Crear Empleado"
-                // onPress={() => navigation.navigate("Formulario Empleado",{empleado:null})}
                 onPress={() => navigation.navigate("Create Employee")}
             />
             <View style={styles.line} />
 
             {empleados.map(empleado => {
-                // return <Item key={empleado._id} empleado={empleado} onPress={() => {navigation.navigate("Formulario Empleado", {empleado: empleado})
-                // }}/>
+
                 return <Item key={empleado._id} empleado={empleado} onPress={() => {navigation.navigate("Modify Employee", {empleado: empleado})
                 }}/>
             })}

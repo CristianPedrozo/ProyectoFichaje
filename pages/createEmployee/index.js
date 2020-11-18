@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
+import CrudEmployees from '../crudEmployees';
 
-const API_BASE_URL = `https://tranquil-dusk-24173.herokuapp.com/api`
+// const API_BASE_URL = `https://tranquil-dusk-24173.herokuapp.com/api`
+const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api`
 
-const createEmployee = ()=>{
+const createEmployee = ({navigation})=>{
 
 //Para el alta
     
@@ -38,7 +40,7 @@ const createEmployee = ()=>{
 
     function create(){
         const headers = new Headers();
-        console.log(emp);
+        // console.log(emp);
         headers.append("Content-type", "application/json")
 
         const requestOptions = {
@@ -49,8 +51,8 @@ const createEmployee = ()=>{
 
         fetch(`${API_BASE_URL}/usuarios/`, requestOptions)
         .then(res => {
-            console.log("Data antes de tratamiento: ", res)
-            return res.json()
+            console.log("Data antes de tratamiento: ", JSON.stringify(res))
+            return res
         })
         .catch(err => {
             console.error("Error en la comunicacion: ", err)
