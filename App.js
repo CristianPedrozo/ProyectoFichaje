@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./pages/login/index"
 import Home from "./pages/home";
 import Asistencias from "./pages/asistencias";
+import VistaAsistenciaQR from "./pages/QRLector/indexFichar";
 
 const Stack = createStackNavigator();
 export default function App() {
