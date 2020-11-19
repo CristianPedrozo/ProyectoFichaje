@@ -1,21 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import * as Google from 'expo-google-app-auth';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Login from "./pages/login/index"
+import Home from "./pages/home";
+import Asistencias from "./pages/asistencias";
 import VistaAsistenciaQR from "./pages/QRLector/indexFichar";
 
-const crudEmpleado={"name":{"first":"Admin","last":"admin"},
-"adress":{"street":"Calle Falsa","number":1234,"floor":5,"apartment":"C"},
-"_id":"5fab59367fa94b820060a637",
-"phone":"1511223344",
-"email":"admin@admin",
-"secret":"WjJGaWFWOXNZVzFoYzE5cmNHRkFlV0ZvYjI4dVkyOXQ5MTI2",
-"imagePatch":"TBD",
-"isAdmin":true,
-"checkIn":1000,
-"checkOut":1900,"__v":0};
+const Stack = createStackNavigator();
 export default function App() {
   return (
-    <VistaAsistenciaQR usuario={crudEmpleado}></VistaAsistenciaQR>
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName="Asistencias">
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Asistencias" component={Asistencias} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
