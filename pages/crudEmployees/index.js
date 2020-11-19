@@ -33,7 +33,7 @@ export default function CrudEmployees({ navigation }) {
             .then((response) => response.json())
             .then((json) => setEmpleados(json))
             .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
-    }, []);
+    }, [empleados]);
 
     return (
 

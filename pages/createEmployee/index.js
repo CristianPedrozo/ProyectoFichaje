@@ -57,6 +57,8 @@ const createEmployee = ({navigation})=>{
         .catch(err => {
             console.error("Error en la comunicacion: ", err)
         })
+
+        navigation.navigate("ABM Empleados");
     }
 
     return (
