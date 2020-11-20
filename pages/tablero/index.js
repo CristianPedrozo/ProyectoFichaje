@@ -10,7 +10,7 @@ export default function Tablero({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-        <Text>{data.email}</Text>
+        <Text>{data.email }</Text>
         <StatusBar style="auto" />
         <Button title="Go back"
             onPress={() => navigation.goBack()}
