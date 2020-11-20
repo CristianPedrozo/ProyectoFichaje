@@ -31,7 +31,7 @@ export default function Employee({ navigation }) {
 
       <View style={styles.body}>
         {isLoading ? <ActivityIndicator /> : (
-          <Row _id={data._id} contacto={data} />  
+          <Row _id={data._id} empleado={data} />  
         )}
       </View>
 
