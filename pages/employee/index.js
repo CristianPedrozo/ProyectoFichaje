@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Alert, Button, Image, ActivityIndicator } from 'react-native';
+import Row from "../../components/Row";
 
 //const API_URL = 'https://tranquil-dusk-24173.herokuapp.com/api/usuarios/lesvanell@gmail.com';
-const API_URL = 'https://stark-atoll-54719.herokuapp.com/api/usuarios/admin@admin'
+const API_URL = 'https://stark-atoll-54719.herokuapp.com/api/usuarios/Javier@olmedo'
 
-export default function Employee() {
+export default function Employee({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
 
@@ -30,9 +31,7 @@ export default function Employee() {
 
       <View style={styles.body}>
         {isLoading ? <ActivityIndicator /> : (
-          <Text>
-            {data.name.first} {data.name.last} {data.adress.street}
-          </Text>
+          <Row _id={data._id} contacto={data} />  
         )}
       </View>
 
@@ -41,13 +40,13 @@ export default function Employee() {
         <View style={[styles.footerLeft, styles.button]}>
           <Button
             title="Fichar"
-            onPress={() => Alert.alert('Debería abrir lector QR')}
+            onPress={() => {navigation.navigate("Home")}}
           />
         </View>
         <View style={[styles.footerRigth, styles.button]}>
           <Button
             title="Mi tablero"
-            onPress={() => Alert.alert('Debería mostrar menú de opciones')}
+            onPress={() => {navigation.navigate("Tablero", {data})}}
           />
         </View>
       </View>
