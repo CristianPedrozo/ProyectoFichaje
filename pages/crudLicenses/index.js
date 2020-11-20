@@ -1,35 +1,42 @@
 import { ScrollView } from 'react-native';
-// import { createStackNavigator } from "@react-navigation/stack";
-// import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
 
-// const Item = ({empleado, onPress}) => {
+const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api`
 
-//     return (
-//         <View style={styles.itemContainer}>
-//             <TouchableOpacity style={styles.button} onPress={onPress}>
-//                 <Image style={styles.foto}  source={require('../../assets/images/avatar1.png')}/>
-//             </TouchableOpacity>
-//             <View style={styles.description}>
-//                 <Text style={styles.descName}>{empleado.name.first + " " + empleado.name.last}</Text>
-//                 <Text style={styles.descEmail}>{empleado.email}</Text>
-//                 <Text style={styles.descDireccion}>{empleado.adress.street + " " + empleado.adress.number + " " + empleado.adress.floor + " " + empleado.adress.apartment}</Text>
-//             </View>
+const Item = ({license,onPress}) => {
+    return (
+        <View style={styles.itemContainer}>
+            <View style={styles.description}>
+                <Text style={styles.descName}>Licencia</Text>
+                <Text style={styles.descDate}>Desde: {license.start}</Text>
+                <Text style={styles.descDate}>Hasta: {license.end}</Text>
+            </View>
+            <TouchableOpacity style={styles.button} onPress={onPress}>
+                <Image style={styles.icono}  source={require('../../assets/images/icono_editar.jpg')}/>
+            </TouchableOpacity>
+        </View>
+    )
+}
 
-//         </View>
-//     )
-// }
-
-export default function CrudLicenses({ navigation }) {
-
+export default function CrudLicenses({ route,navigation }) {
+    const {empleado} = route.params;
+    //Para el listado de licencias
     const [licenses, setLicenses] = useState([]);
-
+    // //Para el alta de una licencia
+    // const [start, setStart] = useState("")
+    // const [end, setEnd] = useState("")
+    
+    // //JSON POST para crear una licencia 
+    // const licenseJson = {
+    //     userId: empleado._id,
+    //     start: start,
+    //     end: end
+    // }
+    //Para listar las licencias del empleado
     useEffect(() => {
-        // fetch('https://tranquil-dusk-24173.herokuapp.com/api/usuarios/') ->andaba
-        fetch('https://stark-atoll-54719.herokuapp.com/api/usuarios/') 
-        // fetch('https://tp2-nodejs.herokuapp.com/api/usuarios')
+        fetch(`${API_BASE_URL}/licencias/usuario/${empleado._id}`) 
             .then((response) => response.json())
             .then((json) => setLicenses(json))
             .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
@@ -38,15 +45,16 @@ export default function CrudLicenses({ navigation }) {
     return (
 
         <ScrollView style={styles.container}>
-            <Button title="Crear Licencia"
-                onPress={() => navigation.navigate("Create License")}
-            />
+            <View style={styles.container}> 
+                <Button title="Crear Licencia" onPress={()=> {navigation.navigate("Crear Licencia", {empleado:empleado})}}/>
+            </View>
             <View style={styles.line} />
 
             {licenses.map(license => {
 
-                // return <Item key={empleado._id} empleado={empleado} onPress={() => {navigation.navigate("Modify Employee", {empleado: empleado})
-                // }}/>
+                return <Item key={license._id} license={license} 
+                onPress={() => {navigation.navigate("Modificar Licencia", {license: license})}}
+                />
             })}
         </ScrollView>
     )
@@ -62,21 +70,24 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
     },
+
     input: {
         borderWidth: 1,
         marginBottom: 12,
         borderRadius: 25,
         paddingHorizontal: 18,
     },
+
     line: {
         height: 2,
         backgroundColor: "black",
         marginVertical: 20,
     },
-    foto: {
-        width: 100,
-        height: 100,
-        borderRadius: 100,
+
+    icono: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
     },
 
     itemContainer: {
@@ -84,20 +95,17 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
 
-    description: {
-        marginLeft: 18,
-    },
-
     descName: {
         fontSize: 20,
         fontWeight: 'bold',
     },
-    descEmail: {
-        fontSize: 16,
-    },
-    descDireccion: {
-        fontSize: 12,
-        marginTop: 8,
 
-    }
+    descDate: {
+        fontSize: 14,
+    },
+
+    description: {
+        marginLeft: 18,
+        flex:1
+    },
 })

@@ -9,8 +9,11 @@ import Employer from "./pages/employer";
 import Employee from "./pages/employee";
 
 import CrudEmployees from './pages/crudEmployees';
-import createEmployee from "./pages/createEmployee"
-import modifyEmployee from "./pages/modifyEmployee"
+import createEmployee from "./pages/createEmployee";
+import modifyEmployee from "./pages/modifyEmployee";
+import CrudLicenses from "./pages/crudLicenses";
+import createLicense from './pages/createLicense';
+import modifyLicense from './pages/modifyLicense';
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -25,6 +28,9 @@ export default function App() {
         <Stack.Screen name="ABM Empleados" component={CrudEmployees} />
         <Stack.Screen name="Create Employee" component={createEmployee} />
         <Stack.Screen name="Modify Employee" component={modifyEmployee} />
+        <Stack.Screen name="ABM Licencias" component={CrudLicenses} />
+        <Stack.Screen name="Crear Licencia" component={createLicense} />
+        <Stack.Screen name="Modificar Licencia" component={modifyLicense} />
         {/* <Stack.Screen name="Employer" component={Employer} />
         <Stack.Screen name="Employee" component={Employee} />
         <Stack.Screen name="Employee" component={FormEmployee} /> */}

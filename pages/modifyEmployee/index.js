@@ -100,9 +100,9 @@ const modifyEmployee = ({route,navigation})=>{
                 <TextInput style={styles.input} placeholder ="Horario Salida" onChangeText={setCheckOut}>{empleado.checkOut}</TextInput> 
                 <View style={styles.fixToText}>
                     <Button title="Modificar" onPress={modify} />
-                    <Button title="Eliminar" onPress={deleted}
+                    <Button title="Eliminar" onPress={deleted} />
                     
-                    // onPress={()=>Alert.alert(
+                    {/* // onPress={()=>Alert.alert(
                     //     'Confirmar',
                     //     'Desea eliminar el  registro?',
                     //     [
@@ -115,8 +115,8 @@ const modifyEmployee = ({route,navigation})=>{
                     //             onPress:() => console.log("Acción Cancelada")
                     //         }
                     //     ]
-                    // )}
-                    />
+                    // )} */}
+                    
                 </View>
             </View>
         </View>

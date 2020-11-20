@@ -21,7 +21,7 @@ export default function Employee() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Image source={require('../../assets/logo.png')} style={styles.logo}></Image>
+          {/* <Image source={require('../../assets/logo.png')} style={styles.logo}></Image> */}
         </View>
         <View style={styles.headerRigth}>
           <Text>Empresa S.A.</Text>
