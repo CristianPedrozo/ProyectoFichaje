@@ -19,7 +19,7 @@ export default function Login({ navigation }) {
 }
 
 async function signInWithGoogleAsync(navigation) {
-    console.log("Inicia logueo... ")
+    //console.log("Inicia logueo... ")
     try {
       const config = {
         // Se tiene que configurar un clientID para una App en iOS (pueden usar esta que estara disponible hasta el 31 de octubre)
@@ -29,7 +29,7 @@ async function signInWithGoogleAsync(navigation) {
       };
   
       const result = await Google.logInAsync(config);
-      console.log("Result: ", result)
+      //console.log("Result: ", result)
       const { type, accessToken } = result;
   
       if (type === 'success') {

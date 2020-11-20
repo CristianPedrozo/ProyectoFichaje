@@ -7,16 +7,17 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./pages/login/index"
 import Home from "./pages/home";
 import Asistencias from "./pages/asistencias";
-import VistaAsistenciaQR from "./pages/QRLector/indexFichar";
+import QR from "./pages/QRLector/indexFichar";
 
 const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="Asistencias">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Asistencias" component={Asistencias} />
+      <Stack.Screen name="indexFichar" component={QR} />
     </Stack.Navigator>
   </NavigationContainer>
   );

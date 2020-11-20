@@ -3,9 +3,9 @@ import { StatusBar } from "expo-status-bar";
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Location from "expo-location";
-import HaversineGeolocation from 'haversine-geolocation';
+import HaversineGeolocation from "haversine-geolocation";
 
-export default ({usuario}) =>{
+export default  ({ navigation, route}) => {
   const [asis,setAsis] = useState(undefined);
   const [status,setStatus] = useState(0);
   const [permisoCamara, setPermisoCamara] = useState(null);
@@ -13,8 +13,10 @@ export default ({usuario}) =>{
   const [DatosQR, setDatosQR] = useState("");
   const [ubicacion, setUbicacion] = useState(null);
   const URL_API = 'https://stark-atoll-54719.herokuapp.com/api';
-  const userID= usuario._id;
-
+  console.log(route)
+  const { usuario } = route.params
+  console.log(usuario)
+  const userID = usuario._id
   const obtenerPermisoCamara = async () => {
     try {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
