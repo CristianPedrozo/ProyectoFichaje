@@ -10,9 +10,20 @@ import Asistencias from "./pages/asistencias";
 import QR from "./pages/QRLector/indexFichar";
 
 const Stack = createStackNavigator();
+const MyTheme = {
+  dark: false,
+  colors: {
+    primary: '#004b8d',
+    background: '#004b8d',
+    card: '#004b8d',
+    text: 'white',
+    border: '#004b8d',
+    notification: '#004b8d',
+  },
+};
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={Home} />

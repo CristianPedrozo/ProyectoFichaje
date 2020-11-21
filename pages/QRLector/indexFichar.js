@@ -1,11 +1,11 @@
-import React, { useState, useEffect, Component } from 'react';
-import { StatusBar } from "expo-status-bar";
-import { Text, View, StyleSheet, Button } from 'react-native';
+import React, { useState, useEffect} from 'react';
+import { Text, View, StyleSheet, Image} from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Location from "expo-location";
 import HaversineGeolocation from "haversine-geolocation";
+import { Dimensions } from 'react-native';
 
-export default  ({ navigation, route}) => {
+export default ({ navigation, route})=>{
   const [asis,setAsis] = useState(undefined);
   const [status,setStatus] = useState(0);
   const [permisoCamara, setPermisoCamara] = useState(null);
@@ -13,9 +13,7 @@ export default  ({ navigation, route}) => {
   const [DatosQR, setDatosQR] = useState("");
   const [ubicacion, setUbicacion] = useState(null);
   const URL_API = 'https://stark-atoll-54719.herokuapp.com/api';
-  console.log(route)
   const { usuario } = route.params
-  console.log(usuario)
   const userID = usuario._id
   const obtenerPermisoCamara = async () => {
     try {
@@ -27,18 +25,19 @@ export default  ({ navigation, route}) => {
     }
   };
   const escanearQR = ({ data }) => {
+    console.log ("entre en el escaneo")
     setEscaneo(true);
     setDatosQR(data);
     fichar();
 
-    if(status!=403){
+    if(status!=401){
       alert("Asistencias existosa!");
     }else{
       alert("Error en la asistencia, re-intente en un momento");
       setEscaneo(false);
     }
+    navigation.pop();
   };
-
   const obtenerUbicacion = async () => {
     try {
       const { coords } = await Location.getCurrentPositionAsync({});
@@ -48,7 +47,6 @@ export default  ({ navigation, route}) => {
       setUbicacion(null);
     }
   };
-
   const obtenerPermisosGPS = async () => {
     try {
       const { status } = await Location.requestPermissionsAsync();
@@ -62,6 +60,7 @@ export default  ({ navigation, route}) => {
   function impactarAsistencia(metodo,asisten){
     const headers = new Headers();
     headers.append("Content-type", "application/json");
+    headers.append('QR_Secret', DatosQR);
     const requestOptions = {
       method: metodo,
       headers: headers,
@@ -89,7 +88,7 @@ export default  ({ navigation, route}) => {
       })
     }
 
-};
+  };
   const fichar = () => {
     if (ubicacion === null) {
       obtenerUbicacion();
@@ -113,8 +112,7 @@ export default  ({ navigation, route}) => {
           checkIn:asis.checkIn,
           checkOut:new Date().toISOString(),
           userId:userID,
-          _id:asis._id,
-          qr_id:DatosQR
+          _id:asis._id
         };
         console.log(asistenciaAux);
         impactarAsistencia('PUT',asistenciaAux);
@@ -124,8 +122,7 @@ export default  ({ navigation, route}) => {
         let asistenciaAux={
           checkIn:fechaAux,
           checkOut:fechaAux,
-          userId:userID,
-          qr_id:DatosQR
+          userId:userID
         };
         console.log("son distintos");
         console.log(asistenciaAux);
@@ -150,7 +147,7 @@ export default  ({ navigation, route}) => {
   } catch (error) {
     console.log(error);
   }
-}
+  };
   useEffect(() => {
     obtenerPermisosGPS();
     obtenerPermisoCamara();
@@ -163,13 +160,45 @@ export default  ({ navigation, route}) => {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-end',
+        backgroundColor: "#004b8d"
       }}>
-      <BarCodeScanner
-        onBarCodeScanned={escaneo ? undefined : escanearQR}
-        style={StyleSheet.absoluteFill}
-      />
+      <BarCodeScanner onBarCodeScanned={escaneo ? undefined : escanearQR} style={[StyleSheet.absoluteFill, styles.container]}>
+        <Image
+          style={styles.qr}
+          source={require('../../assets/recuadro.png')}
+        />
+        <Text
+          onPress={() => navigation.pop()}
+          style={styles.cancel}>
+          Cancel
+        </Text>
+      </BarCodeScanner>
     </View>
   );
-
 }
-
+const { width } = Dimensions.get('window')
+const qrSize = width * 1.1
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  qr: {
+    width: qrSize,
+    height: qrSize,
+  },
+  description: {
+    fontSize: width * 0.1,
+    marginTop: '10%',
+    textAlign: 'center',
+    width: '70%',
+    color: 'white',
+  },
+  cancel: {
+    fontSize: width * 0.07,
+    textAlign: 'center',
+    width: '70%',
+    color: 'white',
+  }
+});
