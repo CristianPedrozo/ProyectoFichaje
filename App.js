@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./pages/home"
 import Tablero from "./pages/tablero"
 import Form from "./pages/form"
+import Asistencias from "./pages/asistencias"
 
 import Employee from "./pages/employee";
 //import Employer from "./pages/employer";
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Tablero" component={Tablero} />
         <Stack.Screen name="Form" component={Form} />
+        <Stack.Screen name="Asistencias" component={Asistencias} />
       </Stack.Navigator>
     </NavigationContainer>
   );

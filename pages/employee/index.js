@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Alert, Button, Image, ActivityIndicator } from 'react-native';
 import Row from "../../components/Row";
 
-//const API_URL = 'https://tranquil-dusk-24173.herokuapp.com/api/usuarios/lesvanell@gmail.com';
-const API_URL = 'https://stark-atoll-54719.herokuapp.com/api/usuarios/Javier@olmedo'
+const API_URL = 'https://stark-atoll-54719.herokuapp.com/api/usuarios/admin@admin'
 
 export default function Employee({ navigation }) {
   const [isLoading, setLoading] = useState(true);
@@ -16,7 +15,7 @@ export default function Employee({ navigation }) {
       .then((json) => setData(json))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
-  }, []);
+  }, [data]);
 
   return (
     <View style={styles.container}>
@@ -39,8 +38,8 @@ export default function Employee({ navigation }) {
       <View style={styles.footer}>
         <View style={[styles.footerLeft, styles.button]}>
           <Button
-            title="Fichar"
-            onPress={() => {navigation.navigate("Home")}}
+            title="Fichadas"
+            onPress={() => {navigation.navigate("Asistencias", {data})}}
           />
         </View>
         <View style={[styles.footerRigth, styles.button]}>
