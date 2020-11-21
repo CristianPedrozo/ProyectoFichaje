@@ -2,14 +2,14 @@ import React from 'react';
 import { ScrollView, View, Text, Image } from 'react-native';
 import RowAsistencia from '../components/RowAsistencia';
 
-const ScrollViewContact = ({ asistencias }) => (
+const ScrollViewAsistencias = ({ asistencias }) => (
     <ScrollView>
         {
             asistencias.map((asistencia) => (
-                <RowAsistencia _id={asistencia._id} asistencia={asistencia} />
+                <RowAsistencia key={asistencia._id} asistencia={asistencia} />
             ))
         }
     </ScrollView>
 )
 
-export default ScrollViewContact;
+export default ScrollViewAsistencias;

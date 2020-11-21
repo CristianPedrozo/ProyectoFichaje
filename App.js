@@ -15,6 +15,10 @@ import CrudLicenses from "./pages/crudLicenses";
 import createLicense from './pages/createLicense';
 import modifyLicense from './pages/modifyLicense';
 
+import Tablero from "./pages/tablero"
+import Form from "./pages/form"
+import Asistencias from "./pages/asistencias"
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -26,7 +30,7 @@ export default function App() {
     //   <StatusBar style="auto" />
     // </View>
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ABM Empleados">
+      <Stack.Navigator initialRouteName="Employee">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="ABM Empleados" component={CrudEmployees} />
         <Stack.Screen name="Create Employee" component={createEmployee} />
@@ -34,9 +38,11 @@ export default function App() {
         <Stack.Screen name="ABM Licencias" component={CrudLicenses} />
         <Stack.Screen name="Crear Licencia" component={createLicense} />
         <Stack.Screen name="Modificar Licencia" component={modifyLicense} />
-        {/* <Stack.Screen name="Employer" component={Employer} />
+        
         <Stack.Screen name="Employee" component={Employee} />
-        <Stack.Screen name="Employee" component={FormEmployee} /> */}
+        <Stack.Screen name="Tablero" component={Tablero} />
+        <Stack.Screen name="Form" component={Form} />
+        <Stack.Screen name="Asistencias" component={Asistencias} />
       </Stack.Navigator>
   </NavigationContainer>
   );

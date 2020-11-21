@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import moment from 'moment';
 
 const RowAsistencia = ({ asistencia }) => (
     <View style={styles.row}>
@@ -8,8 +9,8 @@ const RowAsistencia = ({ asistencia }) => (
             Entrada: {moment(asistencia.checkIn, 'YYYY-MM-DDThhmm:ss').format('DD-MM-YYYY, h:mm:ss a')}
         </Text>
         <Text>
-            <Image source={require('../assets/logout.png')} style={styles.logo}></Image>
             Salida: {moment(asistencia.checkOut, 'YYYY-MM-DDThhmm:ss').format('DD-MM-YYYY, h:mm:ss a')}
+            <Image source={require('../assets/logout.png')} style={styles.logo}></Image>
         </Text>
     </View>
 )
@@ -27,4 +28,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Row;
+export default RowAsistencia;

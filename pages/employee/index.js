@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Alert, Button, Image, ActivityIndicator } from 'react-native';
 import Row from "../../components/Row";
 
-const API_URL = 'https://stark-atoll-54719.herokuapp.com/api/usuarios/admin@admin'
+const API_URL = 'https://stark-atoll-54719.herokuapp.com/api/usuarios/Javier@olmedo'
 
 export default function Employee({ navigation }) {
   const [isLoading, setLoading] = useState(true);
