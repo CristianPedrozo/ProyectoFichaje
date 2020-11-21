@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
 import moment from 'moment';
 
 const ScrollViewContact = ({ asistencias }) => (
@@ -10,9 +10,15 @@ const ScrollViewContact = ({ asistencias }) => (
                 <View>
                     <Text>{asistencia._id}</Text>
                     {/* <Text>checkIn: {asistencia.checkIn}</Text> */}
-                    <Text>Entrada: {moment(asistencia.checkIn, 'YYYY-MM-DDThhmm:ss').format('DD-MM-YYYY, h:mm:ss a')} </Text>
+                    <Text>
+                        <Image source={require('../assets/login.png')} style={styles.logo}></Image>
+                        Entrada: {moment(asistencia.checkIn, 'YYYY-MM-DDThhmm:ss').format('DD-MM-YYYY, h:mm:ss a')}
+                    </Text>
                     {/* <Text>checkOut: {asistencia.checkOut}</Text> */}
-                    <Text>Salidda: {moment(asistencia.checkOut, 'YYYY-MM-DDThhmm:ss').format('DD-MM-YYYY, h:mm:ss a')} </Text>
+                    <Text>
+                        <Image source={require('../assets/logout.png')} style={styles.logo}></Image>
+                        Salida: {moment(asistencia.checkOut, 'YYYY-MM-DDThhmm:ss').format('DD-MM-YYYY, h:mm:ss a')} 
+                    </Text>
                 </View>
 
             ))
@@ -21,3 +27,16 @@ const ScrollViewContact = ({ asistencias }) => (
 )
 
 export default ScrollViewContact;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column'
+    },
+    logo: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        alignItems: 'center'
+    },
+});
