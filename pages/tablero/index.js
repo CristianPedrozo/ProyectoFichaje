@@ -11,7 +11,6 @@ export default function Tablero({ navigation, route }) {
   return (
     <View style={styles.container}>
         <Row _id={data._id} empleado={data} />
-        {/* <Text>{data.email }</Text> */}
         <StatusBar style="auto" />
         <Button title="Go back"
             onPress={() => navigation.goBack()}
