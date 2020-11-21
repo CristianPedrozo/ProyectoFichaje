@@ -6,9 +6,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./pages/home"
 import Tablero from "./pages/tablero"
+import Form from "./pages/form"
 
 import Employee from "./pages/employee";
-import Employer from "./pages/employer";
+//import Employer from "./pages/employer";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="Employee" component={Employee} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Tablero" component={Tablero} />
+        <Stack.Screen name="Form" component={Form} />
       </Stack.Navigator>
     </NavigationContainer>
   );

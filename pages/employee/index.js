@@ -46,7 +46,7 @@ export default function Employee({ navigation }) {
         <View style={[styles.footerRigth, styles.button]}>
           <Button
             title="Mi tablero"
-            onPress={() => {navigation.navigate("Tablero", {data})}}
+            onPress={() => {navigation.navigate("Form", {data})}}
           />
         </View>
       </View>
