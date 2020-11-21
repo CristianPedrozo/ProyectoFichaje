@@ -1,21 +1,54 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-export default function Home() {
-  return (
-    <View style={styles.container}>
-        <Text>Esta va a ser la vista Home</Text>
-        <StatusBar style="auto" />
-    </View>
-  );
+
+export default function Home({navigation}) {
+
+    return(
+        // <View style={styles.container}>
+        //     <Text style ={styles.title}>This is Home!</Text>
+        //     <View style={styles.fixToText}>
+        //         <Button
+        //             title="Employer"
+                    
+        //             onPress={()=> {
+        //                 navigation.navigate("Employer")
+        //             }}
+        //         />
+                
+        //         <Button
+        //             title="Employee"
+                    
+        //             onPress={()=> {
+        //                 navigation.navigate("Employee")
+        //             }}
+        //         />
+        //     </View>
+        // </View>
+        <View>
+            <ScrollView>
+                {/* <AMEmployees></AMEmployees> */}
+                {/* <CrudEmployees></CrudEmployees> */}
+            </ScrollView>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        marginHorizontal: 16,
+      },
+    title: {
+        textAlign: 'center',
+        marginVertical: 8,
+      },
+      fixToText: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 200,
+      },
 });
