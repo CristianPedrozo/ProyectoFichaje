@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import { Button, StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const API_BASE_URL = 'https://stark-atoll-54719.herokuapp.com/api'
 
@@ -45,7 +45,7 @@ const modifyEmployee = ({route,navigation})=>{
 
         fetch(`${API_BASE_URL}/usuarios/${data._id}`, requestOptions)
         .then(res => {
-            console.log("Data antes de tratamiento: ", JSON.stringify(res))
+            //console.log("Data antes de tratamiento: ", JSON.stringify(res))
             return res
         })
         .catch(err => {
@@ -59,6 +59,7 @@ const modifyEmployee = ({route,navigation})=>{
     return (
         <View style={styles.container}> 
             <View>
+                <Text style={styles.textTitle}>Datos personales</Text>
                 <TextInput style={styles.input} placeholder ="Nombres" onChangeText={setFirst} >{data.name.first}</TextInput>
                 <TextInput style={styles.input} placeholder ="Apellidos" onChangeText={setLast} >{data.name.last}</TextInput>
                 <TextInput style={styles.input} placeholder ="Email" onChangeText={setEmail}>{data.email}</TextInput>
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
 
     textTitle:{
         textAlign: "center",
+        fontSize: 30,
         marginBottom: 20,
     },
     

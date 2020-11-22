@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Alert, Button, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Alert, Button, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Row from "../../components/Row";
 
 const API_URL = 'https://stark-atoll-54719.herokuapp.com/api/usuarios/Javier@olmedo'
@@ -30,7 +30,9 @@ export default function Employee({ navigation }) {
 
       <View style={styles.body}>
         {isLoading ? <ActivityIndicator /> : (
-          <Row _id={data._id} empleado={data} />  
+          <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Form", {data})}}>
+            <Row _id={data._id} empleado={data} /> 
+          </TouchableOpacity>
         )}
       </View>
 
@@ -44,8 +46,8 @@ export default function Employee({ navigation }) {
         </View>
         <View style={[styles.footerRigth, styles.button]}>
           <Button
-            title="Mi tablero"
-            onPress={() => {navigation.navigate("Form", {data})}}
+            title="Fichar"
+            onPress={() => {navigation.navigate("Fichar", {data})}}
           />
         </View>
       </View>

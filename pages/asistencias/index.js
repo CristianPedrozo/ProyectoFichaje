@@ -17,6 +17,7 @@ export default function Asistencias({ navigation, route }) {
 
   return (
     <View style={styles.container}>
+        <Text style={styles.textTitle}>Consulta de fichajes</Text>
         <ScrollViewAsistencias asistencias={asistencias} />
     </View>
   );
@@ -28,5 +29,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  textTitle:{
+    textAlign: "center",
+    fontSize: 30,
+    marginBottom: 20,
   },
 });

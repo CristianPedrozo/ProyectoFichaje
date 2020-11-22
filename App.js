@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./pages/home";
 import Employer from "./pages/employer";
 import Employee from "./pages/employee";
+import Fichar from "./pages/fichar";
 
 import CrudEmployees from './pages/crudEmployees';
 import createEmployee from "./pages/createEmployee";
@@ -43,6 +44,7 @@ export default function App() {
         <Stack.Screen name="Tablero" component={Tablero} />
         <Stack.Screen name="Form" component={Form} />
         <Stack.Screen name="Asistencias" component={Asistencias} />
+        <Stack.Screen name="Fichar" component={Fichar} />
       </Stack.Navigator>
   </NavigationContainer>
   );
