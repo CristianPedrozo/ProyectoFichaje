@@ -1,54 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import * as Google from 'expo-google-app-auth';
 
+export default function Home({ navigation }) {
 
-export default function Home({navigation}) {
+    const crudEmpleado={"name":{"first":"Admin","last":"admin"},
+    "adress":{"street":"Calle Falsa","number":1234,"floor":5,"apartment":"C"},
+    "_id":"5fab59367fa94b820060a637",
+    "phone":"1511223344",
+    "email":"admin@admin",
+    "secret":"WjJGaWFWOXNZVzFoYzE5cmNHRkFlV0ZvYjI4dVkyOXQ5MTI2",
+    "imagePatch":"TBD",
+    "isAdmin":true,
+    "checkIn":1000,
+    "checkOut":1900,"__v":0};
 
-    return(
-        // <View style={styles.container}>
-        //     <Text style ={styles.title}>This is Home!</Text>
-        //     <View style={styles.fixToText}>
-        //         <Button
-        //             title="Employer"
-                    
-        //             onPress={()=> {
-        //                 navigation.navigate("Employer")
-        //             }}
-        //         />
-                
-        //         <Button
-        //             title="Employee"
-                    
-        //             onPress={()=> {
-        //                 navigation.navigate("Employee")
-        //             }}
-        //         />
-        //     </View>
-        // </View>
-        <View>
-            <ScrollView>
-                {/* <AMEmployees></AMEmployees> */}
-                {/* <CrudEmployees></CrudEmployees> */}
-            </ScrollView>
+    return (
+        <View style={styles.container}>
+            <Text>This is the home page- SOLO TEST, ELIMINAR</Text>
+            <Button title="Go back"
+                onPress={() => {
+                    // navigation.navigate("About", {nombre})
+                    navigation.navigate("indexFichar", 
+                        {usuario:crudEmpleado}
+                    )
+                }} 
+            />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        marginHorizontal: 16,
-      },
-    title: {
-        textAlign: 'center',
-        marginVertical: 8,
-      },
-      fixToText: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginVertical: 200,
-      },
+        flex: 1
 });
