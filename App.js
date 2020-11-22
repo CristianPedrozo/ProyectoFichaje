@@ -17,8 +17,7 @@ import Form from "./pages/form"
 import * as Google from 'expo-google-app-auth';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Login from "./pages/login/index"
-import Home from "./pages/home";
+import Login from "./pages/login/index";
 import Asistencias from "./pages/asistencias";
 import QR from "./pages/QRLector/indexFichar";
 
@@ -44,7 +43,6 @@ export default function App() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Asistencias" component={Asistencias} />
       <Stack.Screen name="indexFichar" component={QR} />
-      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="ABM Empleados" component={CrudEmployees} />
       <Stack.Screen name="Create Employee" component={createEmployee} />
       <Stack.Screen name="Modify Employee" component={modifyEmployee} />
@@ -54,8 +52,8 @@ export default function App() {
       <Stack.Screen name="Employee" component={Employee} />
       <Stack.Screen name="Tablero" component={Tablero} />
       <Stack.Screen name="Form" component={Form} />
-      <Stack.Screen name="Asistencias" component={Asistencias} />
       <Stack.Screen name="Fichar" component={Fichar} />
+      <Stack.Screen name="Employer" component={Employer} />
     </Stack.Navigator>
   </NavigationContainer>
   );
