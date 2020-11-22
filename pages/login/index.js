@@ -4,7 +4,6 @@ import * as Google from 'expo-google-app-auth';
 
 
 export default function Login({ navigation }) {
-
     //const { nombre } = route.params
     
     return (
@@ -19,24 +18,32 @@ export default function Login({ navigation }) {
 }
 
 async function signInWithGoogleAsync(navigation) {
-    //console.log("Inicia logueo... ")
     try {
       const config = {
-        // Se tiene que configurar un clientID para una App en iOS (pueden usar esta que estara disponible hasta el 31 de octubre)
         iosClientId: `33860000961-hc93104d0s5ovs1t7jmcapdkvrdefu82.apps.googleusercontent.com`,
-        // Se tiene que configurar un clientID para una App en Android (pueden usar esta que estara disponible hasta el 31 de octubre)
         androidClientId: `33860000961-un4ghka1k2sepcnj4gvqeoge4bndf25k.apps.googleusercontent.com`,
       };
   
       const result = await Google.logInAsync(config);
-      //console.log("Result: ", result)
       const { type, accessToken } = result;
-  
+      console.log(result)
       if (type === 'success') {
-        /* Log-Out */
-        navigation.navigate("Home")
-        //await Google.logOutAsync({ accessToken, ...config });
-        /* `accessToken` is now invalid and cannot be used to get data from the Google API with HTTP requests */
+        const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${"test3Cristian@gmail.com"}`
+        console.log(API_URL_USUARIO)
+        fetch(API_URL_USUARIO) 
+            .then((response) => response.json())
+            .then((json) => {
+              if(json.isAdmin == "true"){
+                navigation.navigate("Employer",
+                {usuario: json}
+                )
+              }
+              navigation.navigate("Employee",
+              {usuario: json}
+              )
+            }
+            )
+            .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
       }
     } catch (e) {
       console.error("Error: ", e)
