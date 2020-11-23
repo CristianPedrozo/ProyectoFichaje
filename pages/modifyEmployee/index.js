@@ -21,7 +21,7 @@ const modifyEmployee = ({route,navigation})=>{
     const [email, setEmail] = useState(empleado.email)
     const [checkIn, setCheckIn] = useState(empleado.checkIn)
     const [checkOut, setCheckOut] = useState(empleado.checkOut)
-    const [isAdmin, setisAdmin] = useState(data.isAdmin)
+    const [isAdmin, setisAdmin] = useState(empleado.isAdmin)
  
     const emp = {
         _id:empleado._id,
