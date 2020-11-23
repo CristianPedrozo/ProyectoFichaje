@@ -8,7 +8,6 @@ const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api`
 
 export default function modifyLicense({ route,navigation }) {
     const {license} = route.params;
-    console.log(license);
 
     const [start, setStart] = useState(license.start)
     const [end, setEnd] = useState(license.end)
@@ -55,7 +54,6 @@ export default function modifyLicense({ route,navigation }) {
 
         fetch(`${API_BASE_URL}/licencias/${license._id}`, requestOptions)
         .then(res => {
-            console.log("Data antes de tratamiento: ", JSON.stringify(res))
             return res
         })
         .catch(err => {

@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, StyleSheet, Text, View, Alert, Image } from 'react-native';
 
-export default function Employeer({navigation /*,route*/}){
-    // const {usuario} = route.params;
+export default function Employeer({navigation , route}){
+    const {data} = route.params;
+    console.log(data)
     return(
         <View style={styles.container}>
             <View style={styles.header}>
@@ -13,59 +14,33 @@ export default function Employeer({navigation /*,route*/}){
                 <View style={styles.headerRight}>
                     <Button 
                         title="Editar datos"
-                        onPress={() => {navigation.navigate("Modify Employee", {empleado: usuario})}} 
+                        onPress={() => {navigation.navigate("Form", {data})}} 
                     />
                 </View>
             </View>
-            {/* <Text style={styles.title}>This is Employeer Page</Text> */}
             <View style={styles.body}>
                 <View style={styles.division}>
                     <View style={styles.row}>
                         <Button
                             title="ABM Empleados"
                             onPress={() => {navigation.navigate("ABM Empleados")}}
-                            // onPress={() => Alert.alert('ABM Empleados')}  
+
                         />
                     </View>
                     <View style={styles.row}>
                         <Button
                             title="Asistencias"
-                            
-                            // onPress={()=> {
-                            //     navigation.navigate("")
-                            // }}
                             onPress={() => Alert.alert('Asistencias')}  
                         />
                     </View>
                 </View>
-                {/* <View style={styles.division}>
-                    <View style={styles.row}>
-                        <Button
-                            title="Informes"
-                            
-                            // onPress={()=> {
-                            //     navigation.navigate("")
-                            // }}
-                            onPress={() => Alert.alert('Informes')}  
-                        />
-                    </View>
-                    <View style={styles.row}>
-                        <Button
-                            title="Otros"
-                            
-                            // onPress={()=> {
-                            //     navigation.navigate("")
-                            // }}
-                            onPress={() => Alert.alert('Otro')}  
-                        />
-                    </View>  
-                </View> */}
             </View>    
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         flexDirection: 'column',

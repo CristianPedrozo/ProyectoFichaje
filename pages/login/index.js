@@ -52,7 +52,8 @@ let login = ()=>{
 }
 
 function obtenerDatos(email) {
-  const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${email}`
+  // const API_URL_USUARIO = `https://tp2-nodejs.herokuapp.com/api/usuarios/${email}`
+  const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${email}` //Para probar admin
       fetch(API_URL_USUARIO)
         .then((response) => {
           if (response.ok) { return response.json() }
@@ -68,16 +69,17 @@ function obtenerDatos(email) {
 function redireccionar(json) {
   if (json != undefined) {
     navigation.navigate("Login")
-     if (json.isAdmin == "true") {
+    if (json.isAdmin) {
       navigation.navigate("Employer",
+          { data: json }
+        )
+    } else {
+      navigation.navigate("Employee",
         { data: json }
-      )
-    }
-    navigation.navigate("Employee",
-      { data: json }
-    )
+      )}
   } 
 }
+
 
 async function signInWithGoogleAsync() {
   try {
