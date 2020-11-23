@@ -7,7 +7,8 @@ import Row from "../../components/Row";
 
 export default function Employee({ navigation, route }) {
 
-  const {data} = route.params;
+  const {usuario} = route.params;
+  const [data, setData] = useState(usuario);
  /*  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
 
@@ -31,11 +32,11 @@ export default function Employee({ navigation, route }) {
       </View>
 
       <View style={styles.body}>
-        {isLoading ? <ActivityIndicator /> : (
+        {/* {isLoading ? <ActivityIndicator /> : ( */}
           <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Form", {data})}}>
             <Row _id={data._id} empleado={data} /> 
           </TouchableOpacity>
-        )}
+        {/* )} */}
       </View>
 
 
