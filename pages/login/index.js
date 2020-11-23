@@ -22,15 +22,65 @@ export default function Login({ navigation }) {
       const credentials = await SecureStore.getItemAsync('NT2')
       console.log('value of credentials: ', credentials);
 
-  return (
-    <View style={styles.container}>
-      <Text>Ingresa con google</Text>
-      <Button style={styles.Button} title="Ingresar" onPress={() => { signInWithGoogleAsync(navigation) }} />
-      <Button title="Go back"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </View>
-  );
+      if (credentials) {
+        setEmailLogeado(credentials)
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  obtenerEmail()
+
+  let limpiarEmail = async () => {
+    try {
+      setEmailLogeado(null)
+      await SecureStore.deleteItemAsync('NT2');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+let login = ()=>{
+  console.log(emailLogeado)
+  obtenerEmail()
+  if(emailLogeado != null){
+    obtenerDatos(emailLogeado)
+  }
+  else{
+    signInWithGoogleAsync(navigation)
+  }
+}
+
+function obtenerDatos(email) {
+  // const API_URL_USUARIO = `https://tp2-nodejs.herokuapp.com/api/usuarios/${email}`
+  const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${email}` //Para probar admin
+      fetch(API_URL_USUARIO)
+        .then((response) => {
+          if (response.ok) { return response.json() }
+          alert("El email no existe en la BD")
+        })
+        .then((json) => {
+          redireccionar(json)
+          return json
+        }
+        )
+        .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
+}
+function comprobarActualizacion(usuario) {
+  
+}
+function redireccionar(json) {
+  if (json != undefined) {
+    navigation.navigate("Login")
+    if (json.isAdmin) {
+      navigation.navigate("Employer",
+          { data: json }
+        )
+    } else {
+      navigation.navigate("Employee",
+        { data: json }
+      )}
+  } 
 }
 
 
