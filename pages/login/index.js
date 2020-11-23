@@ -11,7 +11,7 @@ export default function Login({ navigation }) {
       <Text>Ingresa con google</Text>
       <Button style={styles.Button} title="Ingresar" onPress={() => { signInWithGoogleAsync(navigation) }} />
       <Button title="Go back"
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.navigate('Home')}
       />
     </View>
   );

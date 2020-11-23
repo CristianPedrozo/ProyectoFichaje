@@ -7,14 +7,14 @@ import { Dimensions } from 'react-native';
 
 export default ({ navigation, route})=>{
   const [asis,setAsis] = useState(undefined);
-  const [status,setStatus] = useState(0);
   const [permisoCamara, setPermisoCamara] = useState(null);
   const [escaneo, setEscaneo] = useState(false);
-  const [DatosQR, setDatosQR] = useState("");
   const [ubicacion, setUbicacion] = useState(null);
-  const URL_API = 'https://stark-atoll-54719.herokuapp.com/api';
+  const URL_API = 'https://tp2-nodejs.herokuapp.com/api';
   const { usuario } = route.params
   const userID = usuario._id
+  let estatus;
+  
   const obtenerPermisoCamara = async () => {
     try {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -24,19 +24,17 @@ export default ({ navigation, route})=>{
       setPermisoCamara(false);
     }
   };
-  const escanearQR = ({ data }) => {
-    console.log ("entre en el escaneo")
+  const escanearQR = async ({ data }) => {
     setEscaneo(true);
-    setDatosQR(data);
-    fichar();
+    await fichar(data);
 
-    if(status!=401){
+    console.log(estatus)
+    if(estatus!==403&&estatus!==undefined){
       alert("Asistencias existosa!");
     }else{
       alert("Error en la asistencia, re-intente en un momento");
-      setEscaneo(false);
     }
-    navigation.pop();
+    navigation.goBack();
   };
   const obtenerUbicacion = async () => {
     try {
@@ -57,66 +55,55 @@ export default ({ navigation, route})=>{
       console.log("Error al obtener permisos del gps", error);
     }
   };
-  function impactarAsistencia(metodo,asisten){
+  async function impactarAsistencia(metodo,asisten,token){
     const headers = new Headers();
     headers.append("Content-type", "application/json");
-    headers.append('QR_Secret', DatosQR);
+    headers.append('token_qr', token);
     const requestOptions = {
       method: metodo,
       headers: headers,
       body: JSON.stringify(asisten ) 
     } 
-
-    if(metodo=='POST'){
-      fetch(`${URL_API}/asistencias/`, requestOptions)
-      .then(res => {
-        setStatus(res.status);
-        return JSON.stringify(res);
-      })
-      .catch(err => {
-          console.error("Error en la comunicacion en el metodo post: ", err)
-      })
-    }else{
-      console.log("entre en el put");
-      fetch(`${URL_API}/asistencias/${asisten._id}`, requestOptions)
-      .then(res => {
-        setStatus(res.status);
-        return JSON.stringify(res);
-      })
-      .catch(err => {
-          console.error("Error en la comunicacion en el metodo put: ", err)
-      })
+    let estatus = null;
+    let urlFetch;
+    const urls={
+      post:`${URL_API}/asistencias/`,
+      put: `${URL_API}/asistencias/${asisten._id}`
     }
-
+    if(metodo==='POST'){
+      urlFetch=urls.post;
+      console.log(urlFetch,metodo);
+    }else{
+      urlFetch=urls.put;
+      console.log(urlFetch,metodo);
+    }
+    estatus = await fetch(urlFetch, requestOptions)
+    .then(res => {
+      return res.status;
+    })
+    .catch(err => {
+        console.error("error en la asistencia: ", err)
+    })
+    return estatus;
   };
-  const fichar = () => {
+  async function fichar  (token)  {
     if (ubicacion === null) {
       obtenerUbicacion();
     }
-    const ubicaciones = [
-      {
-        latitude: ubicacion.latitude,
-        longitude: ubicacion.longitude
-      },
-      {//aca ira la ubicacion de la ort llamando a la api
-        latitude: -34.5495264,
-        longitude: -58.4530346
-      }
-    ];
-    let distanciaEnMetros = HaversineGeolocation.getDistanceBetween(ubicaciones[0], ubicaciones[0], 'm');
-    obtenerUltimaAsistencia();
+    let UbicacionORT = await obtenerUbicacionORT()
+    await obtenerUltimaAsistencia();
+    console.log(asis);
+    let distanciaEnMetros = HaversineGeolocation.getDistanceBetween(ubicacion, ubicacion, 'm');
     if (distanciaEnMetros<50){
       if(asis!=undefined&&Date.parse(asis.checkIn)===Date.parse(asis.checkOut)){
-        console.log("son iguales")
         let asistenciaAux={
           checkIn:asis.checkIn,
           checkOut:new Date().toISOString(),
           userId:userID,
           _id:asis._id
         };
-        console.log(asistenciaAux);
-        impactarAsistencia('PUT',asistenciaAux);
-        obtenerUltimaAsistencia();
+        estatus=await impactarAsistencia('PUT',asistenciaAux,token);
+        await setAsis(estatus);
       }else{
         let fechaAux= new Date().toISOString();
         let asistenciaAux={
@@ -124,29 +111,56 @@ export default ({ navigation, route})=>{
           checkOut:fechaAux,
           userId:userID
         };
-        console.log("son distintos");
-        console.log(asistenciaAux);
-        impactarAsistencia('POST',asistenciaAux);
-        obtenerUltimaAsistencia();
+        console.log(asis)
+        estatus = await impactarAsistencia('POST',asistenciaAux,token);
+        console.log(estatus);
+        await setAsis(estatus);
       }
+    }else{
+      alert("Estas a "+distanciaEnMetros+" metros, vuelva a intentar");
     }
   };
   const obtenerUltimaAsistencia= async ()=>{
-  try {
-    let id = usuario._id;
-    console.log(URL_API+"/asistencias/usuario/"+id+"/latest")
-    fetch(`${URL_API}/asistencias/usuario/${id}/latest`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
-    })
+    try {
+      let id = usuario._id;
+      fetch(`${URL_API}/asistencias/usuario/${id}/latest`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      })
+        .then(response =>response.json()) // returns promise
+        .then(responseJson => setAsis(responseJson[0]));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  async function obtenerUbicacionORT (){
+    let result;
+    try {
+      let id = usuario.institutionId;
+      result = await fetch(`${URL_API}/instituciones/${id}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      })
       .then(response =>response.json()) // returns promise
-      .then(responseJson => setAsis(responseJson[0]));
-  } catch (error) {
-    console.log(error);
-  }
+      .then(responseJson => {
+        let var1={
+          latitude:0,
+          longitude:0
+        }
+        var1.latitude=responseJson.latitude;
+        var1.longitude=responseJson.longitude;
+        return var1;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    return result;
   };
   useEffect(() => {
     obtenerPermisosGPS();

@@ -13,7 +13,8 @@ export default function Home({ navigation }) {
     "imagePatch":"TBD",
     "isAdmin":true,
     "checkIn":1000,
-    "checkOut":1900,"__v":0};
+    "checkOut":1900,"__v":0,
+    "institutionId":"5fb6d091c18f42c2583213f8"};
 
     return (
         <View style={styles.container}>
