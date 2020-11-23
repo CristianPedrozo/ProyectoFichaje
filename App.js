@@ -19,6 +19,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./pages/login/index";
 import Asistencias from "./pages/asistencias";
 import QR from "./pages/QRLector/indexFichar";
+import Registro from "./pages/registro/index";
 
 const Stack = createStackNavigator();
 const MyTheme = {
@@ -40,6 +41,7 @@ export default function App() {
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Registro" component={Registro} />
       <Stack.Screen name="Asistencias" component={Asistencias} />
       <Stack.Screen name="indexFichar" component={QR} />
       <Stack.Screen name="ABM Empleados" component={CrudEmployees} />
