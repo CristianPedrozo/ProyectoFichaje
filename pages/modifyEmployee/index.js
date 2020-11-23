@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import { Button, StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, Alert, Image , ScrollView} from 'react-native';
 
 // const API_BASE_URL = `https://tranquil-dusk-24173.herokuapp.com/api`
 const API_BASE_URL = 'https://stark-atoll-54719.herokuapp.com/api'
@@ -54,7 +54,7 @@ const modifyEmployee = ({route,navigation})=>{
 
         fetch(`${API_BASE_URL}/usuarios/${empleado._id}`, requestOptions)
         .then(res => {
-            console.log("Data antes de tratamiento: ", JSON.stringify(res))
+            // console.log("Data antes de tratamiento: ", JSON.stringify(res))
             return res
         })
         .catch(err => {
@@ -76,7 +76,7 @@ const modifyEmployee = ({route,navigation})=>{
 
         fetch(`${API_BASE_URL}/usuarios/${empleado._id}`, requestOptions)
         .then(res => {
-            console.log("Data antes de tratamiento: ", JSON.stringify(res))
+            // console.log("Data antes de tratamiento: ", JSON.stringify(res))
             return res
         })
         .catch(err => {
@@ -87,18 +87,19 @@ const modifyEmployee = ({route,navigation})=>{
     }
 
     return (
+        <ScrollView>
         <View style={styles.container}> 
             <View>
                 <TextInput style={styles.input} placeholder ="Nombres" onChangeText={setFirst} >{empleado.name.first}</TextInput>
                 <TextInput style={styles.input} placeholder ="Apellidos" onChangeText={setLast} >{empleado.name.last}</TextInput>
                 <TextInput style={styles.input} placeholder ="Email" onChangeText={setEmail}>{empleado.email}</TextInput>
                 <TextInput style={styles.input} placeholder ="Calle" onChangeText={setStreet}>{empleado.adress.street}</TextInput>
-                <TextInput style={styles.input} placeholder ="Número" onChangeText={setNumber} >{empleado.adress.number}</TextInput>
-                <TextInput style={styles.input} placeholder ="Piso" onChangeText={setFloor} >{empleado.adress.floor}</TextInput>
+                <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Número" onChangeText={setNumber} >{empleado.adress.number}</TextInput>
+                <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Piso" onChangeText={setFloor} >{empleado.adress.floor}</TextInput>
                 <TextInput style={styles.input} placeholder ="Depto." onChangeText={setApartment}>{empleado.adress.apartment}</TextInput>
-                <TextInput style={styles.input} placeholder ="Telefono" onChangeText={setPhone}>{empleado.phone}</TextInput>
-                <TextInput style={styles.input} placeholder ="Horario Entrada" onChangeText={setCheckIn}>{empleado.checkIn}</TextInput>
-                <TextInput style={styles.input} placeholder ="Horario Salida" onChangeText={setCheckOut}>{empleado.checkOut}</TextInput> 
+                <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Telefono" onChangeText={setPhone}>{empleado.phone}</TextInput>
+                <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Horario Entrada" onChangeText={setCheckIn}>{empleado.checkIn}</TextInput>
+                <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Horario Salida" onChangeText={setCheckOut}>{empleado.checkOut}</TextInput> 
                 <View style={styles.fixToText}>
                     <Button title="Modificar" onPress={modify} />
                     <Button title="Eliminar" onPress={deleted} />
@@ -121,6 +122,7 @@ const modifyEmployee = ({route,navigation})=>{
                 </View>
             </View>
         </View>
+        </ScrollView>
     )
 }
 
