@@ -10,8 +10,14 @@ export default ({ navigation, route})=>{
   const [permisoCamara, setPermisoCamara] = useState(null);
   const [escaneo, setEscaneo] = useState(false);
   const [ubicacion, setUbicacion] = useState(null);
+<<<<<<< HEAD
   const URL_API = 'https://tp2-nodejs.herokuapp.com/api';
   const { usuario } = route.params
+=======
+  const URL_API = 'https://stark-atoll-54719.herokuapp.com/api';
+  const { data } = route.params
+  const usuario = data
+>>>>>>> bdb5150a36e7686444de67024b4b00c0da76f002
   const userID = usuario._id
   let estatus;
   

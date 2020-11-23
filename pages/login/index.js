@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import * as Google from 'expo-google-app-auth';
-
+import * as SecureStore from 'expo-secure-store';
+import { color } from 'react-native-reanimated';
 
 export default function Login({ navigation }) {
   //const { nombre } = route.params
+  const [emailLogeado, setEmailLogeado] = useState(null)
+  let guardarEmail = async (email) => {
+    try {
+      await SecureStore.setItemAsync(
+        'NT2',
+        email,
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  let obtenerEmail = async () => {
+    try {
+      const credentials = await SecureStore.getItemAsync('NT2')
+      console.log('value of credentials: ', credentials);
 
   return (
     <View style={styles.container}>
@@ -17,7 +33,8 @@ export default function Login({ navigation }) {
   );
 }
 
-async function signInWithGoogleAsync(navigation) {
+
+async function signInWithGoogleAsync() {
   try {
     const config = {
       iosClientId: `33860000961-hc93104d0s5ovs1t7jmcapdkvrdefu82.apps.googleusercontent.com`,
@@ -27,27 +44,10 @@ async function signInWithGoogleAsync(navigation) {
     const result = await Google.logInAsync(config);
     const { type, accessToken } = result;
     if (type === 'success') {
-      const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${result.user.email}`
-      //const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/test3Cristian@gmail.com`
-      fetch(API_URL_USUARIO)
-        .then((response) => {
-          if (response.ok) { return response.json() }
-          alert("Usuario no registrado en la base de datos")
-        })
-        .then((json) => {
-          if(json != undefined){
-          if (json.isAdmin == "true") {
-            navigation.navigate("Employer",
-              { usuario: json }
-            )
-          }
-          navigation.navigate("Employee",
-            { usuario: json }
-          )
-        }
-      }
-        )
-        .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
+      guardarEmail(result.user.email)
+      let json = obtenerDatos(result.user.email)
+      console.log(result.user)
+      comprobarActualizacionFoto(json, result.user.photoUrl)
     }
   } catch (e) {
     console.log("paso por aca")
@@ -55,6 +55,19 @@ async function signInWithGoogleAsync(navigation) {
     return { error: true };
   }
 }
+  return (
+    <View style={styles.container}>
+    <Text>Ingresa a la app fichaje</Text>
+    <Button style={styles.Button} title="Ingresar" onPress={() => { login() }} />
+    {emailLogeado != null ?
+        <Button  title="Deslogearse" onPress={()=>{ limpiarEmail()}}></Button> : null
+      }
+    <Button title="Go back" onPress={() => navigation.goBack()}/>
+      </View>
+  );
+}
+
+
 
 
 const styles = StyleSheet.create({

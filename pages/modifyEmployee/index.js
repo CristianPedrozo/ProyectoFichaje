@@ -21,6 +21,7 @@ const modifyEmployee = ({route,navigation})=>{
     const [email, setEmail] = useState(empleado.email)
     const [checkIn, setCheckIn] = useState(empleado.checkIn)
     const [checkOut, setCheckOut] = useState(empleado.checkOut)
+    const [isAdmin, setisAdmin] = useState(empleado.isAdmin)
  
     const emp = {
         _id:empleado._id,
@@ -35,7 +36,7 @@ const modifyEmployee = ({route,navigation})=>{
         email: email,
         jwt: null,
         imagePatch: null,
-        isAdmin: false,
+        isAdmin: isAdmin,
         checkIn: parseInt(checkIn),
         checkOut: parseInt(checkOut)
     }
