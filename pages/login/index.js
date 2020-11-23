@@ -70,11 +70,11 @@ function redireccionar(json) {
     navigation.navigate("Login")
      if (json.isAdmin == "true") {
       navigation.navigate("Employer",
-        { usuario: json }
+        { data: json }
       )
     }
     navigation.navigate("Employee",
-      { usuario: json }
+      { data: json }
     )
   } 
 }
