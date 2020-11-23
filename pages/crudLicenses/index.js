@@ -2,16 +2,21 @@ import { ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
+import moment from 'moment';
 
 const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api`
 
 const Item = ({license,onPress}) => {
+    var fechaStart = moment(license.start, 'YYYY-MM-DDThhmm:ss');
+    var fechaEnd = moment(license.end, 'YYYY-MM-DDThhmm:ss');
+    var days= fechaEnd.diff(fechaStart, 'days');
+
     return (
         <View style={styles.itemContainer}>
             <View style={styles.description}>
-                <Text style={styles.descName}>Licencia</Text>
-                <Text style={styles.descDate}>Desde: {license.start}</Text>
-                <Text style={styles.descDate}>Hasta: {license.end}</Text>
+                <Text style={styles.descName}>Licencia: {days} días</Text>
+                <Text>Desde: {moment(license.start, 'YYYY-MM-DDThhmm:ss').format('DD-MM-YYYY')}</Text>
+                <Text>Hasta: {moment(license.end, 'YYYY-MM-DDThhmm:ss').format('DD-MM-YYYY')}</Text>
             </View>
             <TouchableOpacity style={styles.button} onPress={onPress}>
                 <Image style={styles.icono}  source={require('../../assets/images/icono_editar.jpg')}/>
@@ -24,16 +29,6 @@ export default function CrudLicenses({ route,navigation }) {
     const {empleado} = route.params;
     //Para el listado de licencias
     const [licenses, setLicenses] = useState([]);
-    // //Para el alta de una licencia
-    // const [start, setStart] = useState("")
-    // const [end, setEnd] = useState("")
-    
-    // //JSON POST para crear una licencia 
-    // const licenseJson = {
-    //     userId: empleado._id,
-    //     start: start,
-    //     end: end
-    // }
     //Para listar las licencias del empleado
     useEffect(() => {
         fetch(`${API_BASE_URL}/licencias/usuario/${empleado._id}`) 

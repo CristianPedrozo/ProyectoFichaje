@@ -2,6 +2,7 @@ import { ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
+import moment from 'moment';
 
 const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api`
 
@@ -12,7 +13,7 @@ export default function modifyLicense({ route,navigation }) {
     const [start, setStart] = useState(license.start)
     const [end, setEnd] = useState(license.end)
     
-    //JSON POST para crear una licencia 
+    //JSON POST para modificar una licencia 
     const licenseJson = {
         _id: license._id,
         userId: license.userId,
@@ -69,8 +70,8 @@ export default function modifyLicense({ route,navigation }) {
         <ScrollView style={styles.container}>
             <View style={styles.container}> 
             <View>
-                <TextInput style={styles.input} placeholder ="Desde: AAAA-MM-DD" onChangeText={setStart}>{license.start}</TextInput>
-                <TextInput style={styles.input} placeholder ="Hasta: AAAA-MM-DD" onChangeText={setEnd}>{license.end}</TextInput>
+                <TextInput style={styles.input} placeholder ="Desde: AAAA-MM-DD" onChangeText={setStart}>{moment(license.start, 'YYYY-MM-DDThhmm:ss').format('YYYY-MM-DD')}</TextInput>
+                <TextInput style={styles.input} placeholder ="Hasta: AAAA-MM-DD" onChangeText={setEnd}>{moment(license.end, 'YYYY-MM-DDThhmm:ss').format('YYYY-MM-DD')}</TextInput>
                 <View style={styles.fixToText}>
                     <Button title="Modificar" onPress={modify}/>
                     <Button title="Eliminar" onPress={deleted}/>

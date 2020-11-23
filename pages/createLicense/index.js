@@ -2,6 +2,7 @@ import { ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
+import moment from 'moment';
 
 const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api`
 

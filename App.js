@@ -38,7 +38,7 @@ export default function App() {
   
   return (
    <NavigationContainer theme={MyTheme}>
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="Employer">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Asistencias" component={Asistencias} />

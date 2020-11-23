@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, StyleSheet, Text, View, Alert, Image } from 'react-native';
 
-export default function Employeer({navigation}){
+export default function Employeer({navigation /*,route*/}){
+    // const {usuario} = route.params;
     return(
         <View style={styles.container}>
             <View style={styles.header}>
@@ -12,10 +13,7 @@ export default function Employeer({navigation}){
                 <View style={styles.headerRight}>
                     <Button 
                         title="Editar datos"
-                        // onPress={()=> {
-                        //     navigation.navigate("")
-                        // }}
-                        onPress={() => Alert.alert('Editar datos')}   
+                        onPress={() => {navigation.navigate("Modify Employee", {empleado: usuario})}} 
                     />
                 </View>
             </View>
@@ -25,11 +23,8 @@ export default function Employeer({navigation}){
                     <View style={styles.row}>
                         <Button
                             title="ABM Empleados"
-                            
-                            // onPress={()=> {
-                            //     navigation.navigate("")
-                            // }}
-                            onPress={() => Alert.alert('ABM Empleados')}  
+                            onPress={() => {navigation.navigate("ABM Empleados")}}
+                            // onPress={() => Alert.alert('ABM Empleados')}  
                         />
                     </View>
                     <View style={styles.row}>
@@ -43,7 +38,7 @@ export default function Employeer({navigation}){
                         />
                     </View>
                 </View>
-                <View style={styles.division}>
+                {/* <View style={styles.division}>
                     <View style={styles.row}>
                         <Button
                             title="Informes"
@@ -64,7 +59,7 @@ export default function Employeer({navigation}){
                             onPress={() => Alert.alert('Otro')}  
                         />
                     </View>  
-                </View>
+                </View> */}
             </View>    
         </View>
     )
