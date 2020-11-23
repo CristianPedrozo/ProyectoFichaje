@@ -7,7 +7,6 @@ import { color } from 'react-native-reanimated';
 export default function Login({ navigation }) {
   //const { nombre } = route.params
   const [emailLogeado, setEmailLogeado] = useState(null)
-
   let guardarEmail = async (email) => {
     try {
       await SecureStore.setItemAsync(
@@ -30,6 +29,7 @@ export default function Login({ navigation }) {
       console.log(e);
     }
   };
+  obtenerEmail()
 
   let limpiarEmail = async () => {
     try {
@@ -60,11 +60,14 @@ function obtenerDatos(email) {
         })
         .then((json) => {
           redireccionar(json)
+          return json
         }
         )
         .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
 }
-
+function comprobarActualizacion(usuario) {
+  
+}
 function redireccionar(json) {
   if (json != undefined) {
     navigation.navigate("Login")
@@ -90,7 +93,9 @@ async function signInWithGoogleAsync() {
     const { type, accessToken } = result;
     if (type === 'success') {
       guardarEmail(result.user.email)
-      obtenerDatos(result.user.email)
+      let json = obtenerDatos(result.user.email)
+      console.log(result.user)
+      comprobarActualizacionFoto(json, result.user.photoUrl)
     }
   } catch (e) {
     console.log("paso por aca")
