@@ -7,8 +7,8 @@ import Row from "../../components/Row";
 
 export default function Employee({ navigation, route }) {
 
-  const {usuario} = route.params;
-  const [data, setData] = useState(usuario);
+  const {data} = route.params;
+
  /*  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
 
