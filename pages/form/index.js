@@ -16,7 +16,8 @@ const modifyEmployee = ({route,navigation})=>{
     const [apartment, setApartment] = useState(data.adress.apartment)
     const [phone, setPhone] = useState(data.phone)
     const [email, setEmail] = useState(data.email)
- 
+    const [isAdmin, setisAdmin] = useState(data.isAdmin)
+
     const emp = {
         _id:data._id,
         name: { first: first, last: last },
@@ -30,7 +31,7 @@ const modifyEmployee = ({route,navigation})=>{
         email: email,
         jwt: null,
         imagePatch: null,
-        isAdmin: false,
+        isAdmin: isAdmin,
     }
 
     function modify(){
@@ -52,7 +53,8 @@ const modifyEmployee = ({route,navigation})=>{
             console.error("Error en la comunicacion: ", err)
         })
 
-        navigation.navigate("Employee");
+        // navigation.navigate("Employee");
+        navigation.goBack()
     }
 
 

@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
 import CrudEmployees from '../crudEmployees';
 
-// const API_BASE_URL = `https://tranquil-dusk-24173.herokuapp.com/api`
-const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api`
+const API_BASE_URL = `https://tranquil-dusk-24173.herokuapp.com/api`
+// const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api`
 
 const createEmployee = ({navigation})=>{
 

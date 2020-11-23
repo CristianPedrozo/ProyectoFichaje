@@ -1,9 +1,7 @@
 import { ScrollView } from 'react-native';
-// import { createStackNavigator } from "@react-navigation/stack";
-// import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity,TouchableHighlight } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
 
 const Item = ({empleado, onPress, onPressLicense}) => {
 
@@ -31,9 +29,8 @@ export default function CrudEmployees({ navigation }) {
     const [empleados, setEmpleados] = useState([]);
 
     useEffect(() => {
-        // fetch('https://tranquil-dusk-24173.herokuapp.com/api/usuarios/') ->andaba
-        fetch('https://stark-atoll-54719.herokuapp.com/api/usuarios/') 
-        // fetch('https://tp2-nodejs.herokuapp.com/api/usuarios')
+        // fetch('https://stark-atoll-54719.herokuapp.com/api/usuarios/') 
+        fetch('https://tp2-nodejs.herokuapp.com/api/usuarios')
             .then((response) => response.json())
             .then((json) => setEmpleados(json))
             .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
