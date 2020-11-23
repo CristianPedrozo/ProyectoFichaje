@@ -13,7 +13,8 @@ export default ({ navigation, route})=>{
   const [DatosQR, setDatosQR] = useState("");
   const [ubicacion, setUbicacion] = useState(null);
   const URL_API = 'https://stark-atoll-54719.herokuapp.com/api';
-  const { usuario } = route.params
+  const { data } = route.params
+  const usuario = data
   const userID = usuario._id
   const obtenerPermisoCamara = async () => {
     try {
