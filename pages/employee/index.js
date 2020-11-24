@@ -9,17 +9,17 @@ export default function Employee({ navigation, route }) {
 
   const {data} = route.params;
 
- const [isLoading, setLoading] = useState(true);
-  const [empleado, setEmpleado] = useState(data);
+/*  const [isLoading, setLoading] = useState(true);
+  const [data, setdata] = useState(data); */
 
-  useEffect(() => {
-    fetch(`${API_URL}/${empleado.email}`)
+/*   useEffect(() => {
+    fetch(`${API_URL}/${data.email}`)
       .then((response) => response.json())
-      .then((json) => setEmpleado(json))
+      .then((json) => setdata(json))
       .catch((error) => console.error(error))
       .finally(() => {
         setLoading(false)});
-  }, [empleado]);
+  }, [data]); */
 
   return (
     <View style={styles.container}>
@@ -33,11 +33,11 @@ export default function Employee({ navigation, route }) {
       </View>
 
       <View style={styles.body}>
-        {isLoading ? <ActivityIndicator /> : (
-          <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Form", {empleado})}}>
-            <Row _id={empleado._id} empleado={empleado} /> 
+        {/* {isLoading ? <ActivityIndicator /> : ( */}
+          <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Form", {data})}}>
+            <Row _id={data._id} empleado={data} /> 
           </TouchableOpacity>
-         )} 
+         {/* )}  */}
       </View>
 
 

@@ -52,7 +52,7 @@ export default function Login({ navigation }) {
 
   function obtenerDatos(email, urlFoto) {
     // const API_URL_USUARIO = `https://tp2-nodejs.herokuapp.com/api/usuarios/${email}`
-    const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${email}` //Para probar admin
+    const API_URL_USUARIO = `https://tp2-nodejs.herokuapp.com/api/usuarios/${email}` //Para probar admin
     fetch(API_URL_USUARIO)
       .then((response) => {
         if (response.ok) { return response.json() }
@@ -71,7 +71,7 @@ export default function Login({ navigation }) {
   }
 
   async function comprobarActualizacionFoto(usuario, url) {
-    const API_BASE_URL = 'https://stark-atoll-54719.herokuapp.com/api'
+    const API_BASE_URL = 'https://tp2-nodejs.herokuapp.com/api/'
     if (usuario == undefined)
       return
     const emp = {

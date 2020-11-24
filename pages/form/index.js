@@ -6,20 +6,20 @@ const API_BASE_URL = 'https://tp2-nodejs.herokuapp.com/api'
 
 const modifyEmployee = ({route,navigation})=>{
 
-    const {empleado} = route.params;
+    const {data} = route.params;
     
-    const [first,setFirst] = useState(empleado.name.first)
-    const [last,setLast] = useState(empleado.name.last)
-    const [street, setStreet] = useState(empleado.adress.street)
-    const [number, setNumber] = useState(empleado.adress.number)
-    const [floor, setFloor] = useState(empleado.adress.floor)
-    const [apartment, setApartment] = useState(empleado.adress.apartment)
-    const [phone, setPhone] = useState(empleado.phone)
-    const [email, setEmail] = useState(empleado.email)
-    const [isAdmin, setisAdmin] = useState(empleado.isAdmin)
+    const [first,setFirst] = useState(data.name.first)
+    const [last,setLast] = useState(data.name.last)
+    const [street, setStreet] = useState(data.adress.street)
+    const [number, setNumber] = useState(data.adress.number)
+    const [floor, setFloor] = useState(data.adress.floor)
+    const [apartment, setApartment] = useState(data.adress.apartment)
+    const [phone, setPhone] = useState(data.phone)
+    const [email, setEmail] = useState(data.email)
+    const [isAdmin, setisAdmin] = useState(data.isAdmin)
 
     const emp = {
-        _id:empleado._id,
+        _id:data._id,
         name: { first: first, last: last },
         adress: {
           street: street,
@@ -44,9 +44,9 @@ const modifyEmployee = ({route,navigation})=>{
             body: JSON.stringify(emp)
         }
 
-        fetch(`${API_BASE_URL}/usuarios/${empleado._id}`, requestOptions)
+        fetch(`${API_BASE_URL}/usuarios/${data._id}`, requestOptions)
         .then(res => {
-            //console.log("empleado antes de tratamiento: ", JSON.stringify(res))
+            //console.log("data antes de tratamiento: ", JSON.stringify(res))
             return res
         })
         .catch(err => {
@@ -62,14 +62,14 @@ const modifyEmployee = ({route,navigation})=>{
         <View style={styles.container}> 
             <View>
                 <Text style={styles.textTitle}>Datos personales</Text>
-                <TextInput style={styles.input} placeholder ="Nombres" onChangeText={setFirst} >{empleado.name.first}</TextInput>
-                <TextInput style={styles.input} placeholder ="Apellidos" onChangeText={setLast} >{empleado.name.last}</TextInput>
-                <TextInput style={styles.input} placeholder ="Email" onChangeText={setEmail}>{empleado.email}</TextInput>
-                <TextInput style={styles.input} placeholder ="Calle" onChangeText={setStreet}>{empleado.adress.street}</TextInput>
-                <TextInput style={styles.input} placeholder ="Número" onChangeText={setNumber} >{empleado.adress.number}</TextInput>
-                <TextInput style={styles.input} placeholder ="Piso" onChangeText={setFloor} >{empleado.adress.floor}</TextInput>
-                <TextInput style={styles.input} placeholder ="Depto." onChangeText={setApartment}>{empleado.adress.apartment}</TextInput>
-                <TextInput style={styles.input} placeholder ="Telefono" onChangeText={setPhone}>{empleado.phone}</TextInput>
+                <TextInput style={styles.input} placeholder ="Nombres" onChangeText={setFirst} >{data.name.first}</TextInput>
+                <TextInput style={styles.input} placeholder ="Apellidos" onChangeText={setLast} >{data.name.last}</TextInput>
+                <TextInput style={styles.input} placeholder ="Email" onChangeText={setEmail}>{data.email}</TextInput>
+                <TextInput style={styles.input} placeholder ="Calle" onChangeText={setStreet}>{data.adress.street}</TextInput>
+                <TextInput style={styles.input} placeholder ="Número" onChangeText={setNumber} >{data.adress.number}</TextInput>
+                <TextInput style={styles.input} placeholder ="Piso" onChangeText={setFloor} >{data.adress.floor}</TextInput>
+                <TextInput style={styles.input} placeholder ="Depto." onChangeText={setApartment}>{data.adress.apartment}</TextInput>
+                <TextInput style={styles.input} placeholder ="Telefono" onChangeText={setPhone}>{data.phone}</TextInput>
                 <View style={styles.fixToText}>
                     <Button title="Modificar" onPress={modify} />                   
                 </View>
