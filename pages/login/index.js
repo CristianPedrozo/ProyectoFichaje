@@ -76,16 +76,16 @@ export default function Login({ navigation }) {
       return
     const emp = {
       _id: usuario._id,
-      name: { first: usuario.first, last: usuario.last },
+      name: { first: usuario.name.first, last: usuario.name.last },
       adress: {
-        street: usuario.street,
-        number: parseInt(usuario.number),
-        floor: parseInt(usuario.floor),
-        apartment: usuario.apartment
+        street: usuario.adress.street,
+        number: parseInt(usuario.adress.number),
+        floor: parseInt(usuario.adress.floor),
+        apartment: usuario.adress.apartment
       },
       phone: usuario.phone,
       email: usuario.email,
-      jwt: null,
+      jwt: usuario.jwt,
       imagePatch: url,
       isAdmin: usuario.isAdmin,
       checkIn: parseInt(usuario.checkIn),
@@ -155,7 +155,6 @@ export default function Login({ navigation }) {
         emailLogeado != null ?
           <Button title="Deslogearse" onPress={() => { limpiarEmail() }}></Button> : null
       }
-      <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
