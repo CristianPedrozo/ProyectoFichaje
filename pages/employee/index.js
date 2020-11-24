@@ -27,10 +27,9 @@ export default function Employee({ navigation, route }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          {isLoading ? <ActivityIndicator /> : (
-            //<Image source={require('../../assets/logo.png')} style={styles.logo}></Image>
-            <Text>Falta el logo en logoPath</Text>
-          )}
+          {/* {isLoading ? <ActivityIndicator /> : ( */}
+            <Image style={styles.logo} source={require('../../assets/images/logoOrt.jpg')} />
+          {/* )} */}
         </View>
         <View style={styles.headerRigth}>
           {isLoading ? <ActivityIndicator /> : (
@@ -122,9 +121,9 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   logo: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    width: 140,
+    height: 140,
+    borderRadius: 70,
     alignItems: 'center'
   },
   icono: {
