@@ -6,7 +6,7 @@ import HaversineGeolocation from "haversine-geolocation";
 import { Dimensions } from 'react-native';
 
 export default ({ navigation, route})=>{
-  const [asis,setAsis] = useState(undefined);
+  const [asis,setAsis] = useState(null);
   const [permisoCamara, setPermisoCamara] = useState(null);
   const [escaneo, setEscaneo] = useState(false);
   const [ubicacion, setUbicacion] = useState(null);
@@ -33,11 +33,15 @@ export default ({ navigation, route})=>{
     setEscaneo(true);
     await fichar(data);
 
-    console.log(estatus)
-    if(estatus!==403&&estatus!==undefined){
-      alert("Asistencias existosa!");
+    console.log(estatus);
+    if(estatus!==401){
+      if(estatus!==403&&estatus!==undefined){
+        alert("Asistencias existosa!");
+      }else{
+        alert("Error en la asistencia, re-intente en un momento");
+      }
     }else{
-      alert("Error en la asistencia, re-intente en un momento");
+      alert("Error con permisos QR, vuelva a intentar")
     }
     navigation.goBack();
   };
@@ -179,9 +183,13 @@ export default ({ navigation, route})=>{
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-end',
-        backgroundColor: "#004b8d"
+        backgroundColor: "#004b8d",
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign:'center'
       }}>
-      <BarCodeScanner onBarCodeScanned={escaneo ? undefined : escanearQR} style={[StyleSheet.absoluteFill, styles.container]}>
+      {(asis===null||ubicacion===null)&&<Text style={styles.cargando}>Cargando...</Text>}
+      {asis!=null&&ubicacion!=null&&<BarCodeScanner onBarCodeScanned={escaneo ? undefined : escanearQR} style={[StyleSheet.absoluteFill, styles.container]}>
         <Image
           style={styles.qr}
           source={require('../../assets/recuadro.png')}
@@ -191,7 +199,7 @@ export default ({ navigation, route})=>{
           style={styles.cancel}>
           Cancel
         </Text>
-      </BarCodeScanner>
+      </BarCodeScanner>}
     </View>
   );
 }
@@ -201,7 +209,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    textAlign:'center'
   },
   qr: {
     width: qrSize,
@@ -219,5 +228,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '70%',
     color: 'white',
+  },
+  cargando: {
+    fontSize: width * 0.1,
+    textAlign: 'center',
+    width: '70%',
+    color: 'white',
+    justifyContent: 'center'
   }
 });
