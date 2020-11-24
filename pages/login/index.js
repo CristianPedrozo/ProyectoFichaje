@@ -25,11 +25,11 @@ export default function Login({ navigation }) {
         'NT2',
         email,
       );
+      setEmailLogeado(email)
     } catch (e) {
       console.log(e);
     }
   };
-
 
   let limpiarEmail = async () => {
     try {
@@ -50,19 +50,18 @@ export default function Login({ navigation }) {
     }
   }
 
-  function obtenerDatos(email,urlFoto) {
+  function obtenerDatos(email, urlFoto) {
     // const API_URL_USUARIO = `https://tp2-nodejs.herokuapp.com/api/usuarios/${email}`
     const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${email}` //Para probar admin
     fetch(API_URL_USUARIO)
       .then((response) => {
         if (response.ok) { return response.json() }
         else {
-          console.log(response.status)
           alert("El email no existe en la BD")
         }
       })
       .then((json) => {
-        if(urlFoto != null){
+        if (urlFoto != null) {
           comprobarActualizacionFoto(json, urlFoto)
         }
         redireccionar(json)
@@ -112,6 +111,8 @@ export default function Login({ navigation }) {
 
   function redireccionar(json) {
     if (json != undefined) {
+      /*   navigation.navigate("AsistenciasEmployer",
+            { data: json }) PARA TEST - Cristian*/
       if (json.isAdmin) {
         navigation.navigate("Employer",
           { data: json }
@@ -134,7 +135,7 @@ export default function Login({ navigation }) {
       const result = await Google.logInAsync(config);
       const { type, accessToken } = result;
       if (type === 'success') {
-        guardarEmail(result.user.email)
+        await guardarEmail(result.user.email)
         obtenerDatos(result.user.email, result.user.photoUrl)
       }
     } catch (e) {
@@ -142,13 +143,14 @@ export default function Login({ navigation }) {
       return { error: true };
     }
   }
+
   return (
     <View style={styles.container}>
       <Text>Ingresa a la app fichaje</Text>
       <Button style={styles.Button} title="Ingresar" onPress={() => { login() }} />
       {
         emailLogeado != null ?
-        <Button title="Deslogearse" onPress={() => { limpiarEmail() }}></Button> : null
+          <Button title="Deslogearse" onPress={() => { limpiarEmail() }}></Button> : null
       }
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
