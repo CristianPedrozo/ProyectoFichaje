@@ -3,22 +3,23 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Alert, Button, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Row from "../../components/Row";
 
-//const API_URL = 'https://stark-atoll-54719.herokuapp.com/api/usuarios/Javier@olmedo'
+const API_URL = 'https://tp2-nodejs.herokuapp.com/api/usuarios/'
 
 export default function Employee({ navigation, route }) {
 
   const {data} = route.params;
 
- /*  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState();
+ const [isLoading, setLoading] = useState(true);
+  const [empleado, setEmpleado] = useState(data);
 
   useEffect(() => {
-    fetch(API_URL)
+    fetch(`${API_URL}/${empleado.email}`)
       .then((response) => response.json())
-      .then((json) => setData(json))
+      .then((json) => setEmpleado(json))
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, [data]); */
+      .finally(() => {
+        setLoading(false)});
+  }, [empleado]);
 
   return (
     <View style={styles.container}>
@@ -32,11 +33,11 @@ export default function Employee({ navigation, route }) {
       </View>
 
       <View style={styles.body}>
-        {/* {isLoading ? <ActivityIndicator /> : ( */}
-          <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Form", {data})}}>
-            <Row _id={data._id} empleado={data} /> 
+        {isLoading ? <ActivityIndicator /> : (
+          <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Form", {empleado})}}>
+            <Row _id={empleado._id} empleado={empleado} /> 
           </TouchableOpacity>
-        {/* )} */}
+         )} 
       </View>
 
 
