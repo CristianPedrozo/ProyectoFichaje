@@ -3,41 +3,49 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Alert, Button, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Row from "../../components/Row";
 
-const API_URL = 'https://tp2-nodejs.herokuapp.com/api/usuarios/'
+const API_URL = 'https://tp2-nodejs.herokuapp.com/api/instituciones/'
 
 export default function Employee({ navigation, route }) {
 
-  const {data} = route.params;
+  const { data } = route.params;
+  const institutionId = data.institutionId;
 
-/*  const [isLoading, setLoading] = useState(true);
-  const [data, setdata] = useState(data); */
+  const [isLoading, setLoading] = useState(true);
+  const [institucion, setInstitucion] = useState(data);
 
-/*   useEffect(() => {
-    fetch(`${API_URL}/${data.email}`)
+  useEffect(() => {
+    fetch(`${API_URL}${institutionId}`)
       .then((response) => response.json())
-      .then((json) => setdata(json))
+      .then((json) => setInstitucion(json))
       .catch((error) => console.error(error))
       .finally(() => {
-        setLoading(false)});
-  }, [data]); */
+        setLoading(false)
+      });
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Image source={require('../../assets/logo.png')} style={styles.logo}></Image>
+          {isLoading ? <ActivityIndicator /> : (
+            //<Image source={require('../../assets/logo.png')} style={styles.logo}></Image>
+            <Text>Falta el logo en logoPath</Text>
+          )}
         </View>
         <View style={styles.headerRigth}>
-          <Text>Empresa S.A.</Text>
+          {isLoading ? <ActivityIndicator /> : (
+            <Text>{institucion.name}</Text>
+          )}
         </View>
       </View>
 
       <View style={styles.body}>
-        {/* {isLoading ? <ActivityIndicator /> : ( */}
-          <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("Form", {data})}}>
-            <Row _id={data._id} empleado={data} /> 
+          <View style={styles.bodyLeft}>
+          <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate("Form", { data }) }}>
+            <Image style={styles.icono} source={require('../../assets/images/icono_editar.jpg')} />
           </TouchableOpacity>
-         {/* )}  */}
+          </View>
+          <View style={styles.bodyRigth}><Row _id={data._id} empleado={data}/></View>
       </View>
 
 
@@ -45,13 +53,13 @@ export default function Employee({ navigation, route }) {
         <View style={[styles.footerLeft, styles.button]}>
           <Button
             title="Fichadas"
-            onPress={() => {navigation.navigate("Asistencias", {data})}}
+            onPress={() => { navigation.navigate("Asistencias", { data }) }}
           />
         </View>
         <View style={[styles.footerRigth, styles.button]}>
           <Button
             title="Fichar"
-            onPress={() => {navigation.navigate("indexFichar", {data})}}
+            onPress={() => { navigation.navigate("indexFichar", { data }) }}
           />
         </View>
       </View>
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 0.7,
     flexDirection: 'row',
-    backgroundColor: 'orange'
+    backgroundColor: 'beige'
   },
   headerLeft: {
     flex: 1,
@@ -76,13 +84,27 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   headerRigth: {
-    flex: 0.9,
+    flex: 0.5,
+    color: 'white',
     justifyContent: 'center'
   },
   body: {
     flex: 1,
     backgroundColor: 'white',
+    //justifyContent: 'center',
+    flexDirection: 'row'
+  },
+  bodyRigth: {
+    flex: 2,
     justifyContent: 'center',
+    //backgroundColor: 'yellow',
+    marginLeft: 0.1
+  },
+  bodyLeft: {
+    flex: 0.3,
+    justifyContent: 'center',
+    marginLeft: 10
+    //backgroundColor: 'orange'
   },
   footer: {
     flex: 0.7,
@@ -104,5 +126,10 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 75,
     alignItems: 'center'
+  },
+  icono: {
+    width: 40,
+    height: 40,
+    borderRadius: 40,
   },
 });
