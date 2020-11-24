@@ -7,6 +7,18 @@ import { color } from 'react-native-reanimated';
 export default function Login({ navigation }) {
   //const { nombre } = route.params
   const [emailLogeado, setEmailLogeado] = useState(null)
+  let obtenerEmail = async () => {
+    try {
+      const credentials = await SecureStore.getItemAsync('NT2')
+      if (credentials) {
+        setEmailLogeado(credentials)
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  obtenerEmail()
+
   let guardarEmail = async (email) => {
     try {
       await SecureStore.setItemAsync(
@@ -17,19 +29,7 @@ export default function Login({ navigation }) {
       console.log(e);
     }
   };
-  let obtenerEmail = async () => {
-    try {
-      const credentials = await SecureStore.getItemAsync('NT2')
-      console.log('value of credentials: ', credentials);
 
-      if (credentials) {
-        setEmailLogeado(credentials)
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  obtenerEmail()
 
   let limpiarEmail = async () => {
     try {
@@ -40,80 +40,118 @@ export default function Login({ navigation }) {
     }
   };
 
-let login = ()=>{
-  console.log(emailLogeado)
-  obtenerEmail()
-  if(emailLogeado != null){
-    obtenerDatos(emailLogeado)
+  let login = () => {
+    obtenerEmail()
+    if (emailLogeado != null) {
+      obtenerDatos(emailLogeado, null)
+    }
+    else {
+      signInWithGoogleAsync(navigation)
+    }
   }
-  else{
-    signInWithGoogleAsync(navigation)
-  }
-}
 
-function obtenerDatos(email) {
-  // const API_URL_USUARIO = `https://tp2-nodejs.herokuapp.com/api/usuarios/${email}`
-  const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${email}` //Para probar admin
-      fetch(API_URL_USUARIO)
-        .then((response) => {
-          if (response.ok) { return response.json() }
+  function obtenerDatos(email,urlFoto) {
+    // const API_URL_USUARIO = `https://tp2-nodejs.herokuapp.com/api/usuarios/${email}`
+    const API_URL_USUARIO = `https://stark-atoll-54719.herokuapp.com/api/usuarios/${email}` //Para probar admin
+    fetch(API_URL_USUARIO)
+      .then((response) => {
+        if (response.ok) { return response.json() }
+        else {
+          console.log(response.status)
           alert("El email no existe en la BD")
-        })
-        .then((json) => {
-          redireccionar(json)
-          return json
         }
-        )
-        .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
-}
-function comprobarActualizacion(usuario) {
-  
-}
-function redireccionar(json) {
-  if (json != undefined) {
-    navigation.navigate("Login")
-    if (json.isAdmin) {
-      navigation.navigate("Employer",
+      })
+      .then((json) => {
+        if(urlFoto != null){
+          comprobarActualizacionFoto(json, urlFoto)
+        }
+        redireccionar(json)
+      }
+      )
+      .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
+  }
+
+  async function comprobarActualizacionFoto(usuario, url) {
+    const API_BASE_URL = 'https://stark-atoll-54719.herokuapp.com/api'
+    if (usuario == undefined)
+      return
+    const emp = {
+      _id: usuario._id,
+      name: { first: usuario.first, last: usuario.last },
+      adress: {
+        street: usuario.street,
+        number: parseInt(usuario.number),
+        floor: parseInt(usuario.floor),
+        apartment: usuario.apartment
+      },
+      phone: usuario.phone,
+      email: usuario.email,
+      jwt: null,
+      imagePatch: url,
+      isAdmin: usuario.isAdmin,
+      checkIn: parseInt(usuario.checkIn),
+      checkOut: parseInt(usuario.checkOut)
+    }
+    if (usuario.photoUrl != url) {
+      const headers = new Headers();
+      headers.append("Content-type", "application/json")
+
+      const requestOptions = {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify(emp)
+      }
+
+      await fetch(`${API_BASE_URL}/usuarios/${emp._id}`, requestOptions)
+        .then(response => { return response.json() })
+        .catch(err => {
+          console.error("Error en la comunicacion: ", err)
+        })
+    }
+  }
+
+  function redireccionar(json) {
+    if (json != undefined) {
+      if (json.isAdmin) {
+        navigation.navigate("Employer",
           { data: json }
         )
-    } else {
-      navigation.navigate("Employee",
-        { data: json }
-      )}
-  } 
-}
-
-
-async function signInWithGoogleAsync() {
-  try {
-    const config = {
-      iosClientId: `33860000961-hc93104d0s5ovs1t7jmcapdkvrdefu82.apps.googleusercontent.com`,
-      androidClientId: `33860000961-un4ghka1k2sepcnj4gvqeoge4bndf25k.apps.googleusercontent.com`,
-    };
-
-    const result = await Google.logInAsync(config);
-    const { type, accessToken } = result;
-    if (type === 'success') {
-      guardarEmail(result.user.email)
-      let json = obtenerDatos(result.user.email)
-      console.log(result.user)
-      comprobarActualizacionFoto(json, result.user.photoUrl)
+      } else {
+        navigation.navigate("Employee",
+          { data: json }
+        )
+      }
     }
-  } catch (e) {
-    console.log("paso por aca")
-    console.error("Error: ", e)
-    return { error: true };
   }
-}
+
+  async function signInWithGoogleAsync() {
+    try {
+      const config = {
+        iosClientId: `33860000961-hc93104d0s5ovs1t7jmcapdkvrdefu82.apps.googleusercontent.com`,
+        androidClientId: `33860000961-un4ghka1k2sepcnj4gvqeoge4bndf25k.apps.googleusercontent.com`,
+      };
+
+      const result = await Google.logInAsync(config);
+      const { type, accessToken } = result;
+      if (type === 'success') {
+        guardarEmail(result.user.email)
+        obtenerDatos(result.user.email, result.user.photoUrl)
+      }
+    } catch (e) {
+      console.error("Error: ", e)
+      return { error: true };
+    }
+  }
   return (
     <View style={styles.container}>
-    <Text>Ingresa a la app fichaje</Text>
-    <Button style={styles.Button} title="Ingresar" onPress={() => { login() }} />
-    {emailLogeado != null ?
-        <Button  title="Deslogearse" onPress={()=>{ limpiarEmail()}}></Button> : null
+      <Text>Ingresa a la app fichaje</Text>
+      <Button style={styles.Button} title="Ingresar" onPress={() => { login() }} />
+      {
+        emailLogeado != null ?
+        <Button title="Deslogearse" onPress={() => { limpiarEmail() }}></Button> : null
       }
-    <Button title="Go back" onPress={() => navigation.goBack()}/>
-      </View>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
   );
 }
 
