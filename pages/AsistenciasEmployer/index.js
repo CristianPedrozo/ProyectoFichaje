@@ -4,15 +4,20 @@ import { ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
+import img from "../../assets/images/avatar1.png";
 
 const Item = ({ empleado, onPress, estaPresente }) => {
     var textoEstado = estaPresente == true ? "trabajando" : "ausente"
-
+    let itemImg = <Image style={styles.foto} source= {img} />
+    if(empleado.imagePatch != null && empleado.imagePatch.includes("http")){
+        let imgAux = { uri: empleado.imagePatch};
+        itemImg = <Image style={styles.foto} source= {imgAux} />
+    }
     return (
         <View style={styles.itemContainer} >
             <TouchableOpacity style={styles.button} onPress={onPress}>
                 <View style={styles.itemContainer}>
-                    <Image style={styles.foto} source={require('../../assets/images/avatar1.png')} />
+                    {itemImg}
                     <View style={styles.description}>
                         <Text style={styles.descName}>{empleado.name.first + " " + empleado.name.last }</Text>
                         <Text style={styles.descEmail}>{empleado.email}</Text>
