@@ -23,7 +23,7 @@ export default function Employeer({navigation , route}){
                     <View style={styles.row}>
                         <Button
                             title="ABM Empleados"
-                            onPress={() => {navigation.navigate("ABM Empleados")}}
+                            onPress={() => {navigation.navigate("ABM Empleados", {admin:data})}}
 
                         />
                     </View>

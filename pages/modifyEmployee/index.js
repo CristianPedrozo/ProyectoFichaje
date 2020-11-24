@@ -9,7 +9,6 @@ const API_BASE_URL = 'https://stark-atoll-54719.herokuapp.com/api'
 const modifyEmployee = ({route,navigation})=>{
     //route.params para modificación
     const {empleado} = route.params;
-    //Para el alta
     
     const [first,setFirst] = useState(empleado.name.first)
     const [last,setLast] = useState(empleado.name.last)
@@ -61,7 +60,7 @@ const modifyEmployee = ({route,navigation})=>{
             console.error("Error en la comunicacion: ", err)
         })
 
-        navigation.navigate("ABM Empleados");
+        navigation.goBack();
     }
 
     function deleted(){
