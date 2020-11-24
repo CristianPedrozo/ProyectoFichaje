@@ -1,15 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, StyleSheet, Text, View, Alert, Image } from 'react-native';
+import img from "../../assets/images/avatar1.png";
 
 export default function Employeer({navigation , route}){
     const {data} = route.params;
     console.log(data)
+    let itemImg = <Image style={styles.logo} source= {img} />
+    if(data.imagePatch != null && data.imagePatch.includes("http")){
+        let imgAux = { uri: data.imagePatch};
+        itemImg = <Image style={styles.logo} source= {imgAux} />
+    }
     return(
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.headerLeft}>
-                    <Image source={require('../../assets/images/employer.png')} style={styles.logo}/>
+                    {itemImg}
                 </View>
                 <View style={styles.headerRight}>
                     <Button 
@@ -30,7 +36,7 @@ export default function Employeer({navigation , route}){
                     <View style={styles.row}>
                         <Button
                             title="Asistencias"
-                            onPress={() => Alert.alert('Asistencias')}  
+                            onPress={()=> { navigation.navigate("AsistenciasEmployer", {data:data})}}  
                         />
                     </View>
                 </View>
