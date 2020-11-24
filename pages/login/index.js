@@ -71,7 +71,7 @@ export default function Login({ navigation }) {
   }
 
   async function comprobarActualizacionFoto(usuario, url) {
-    const API_BASE_URL = 'https://tp2-nodejs.herokuapp.com/api/'
+    const API_BASE_URL = 'https://tp2-nodejs.herokuapp.com/api'
     if (usuario == undefined)
       return
     const emp = {
@@ -89,7 +89,11 @@ export default function Login({ navigation }) {
       imagePatch: url,
       isAdmin: usuario.isAdmin,
       checkIn: parseInt(usuario.checkIn),
-      checkOut: parseInt(usuario.checkOut)
+      checkOut: parseInt(usuario.checkOut),
+      secret: usuario.secret,
+      institutionId: usuario.institutionId,
+      __v: usuario.__v,
+      jwt: usuario.jwt
     }
     if (usuario.photoUrl != url) {
       const headers = new Headers();
@@ -100,9 +104,10 @@ export default function Login({ navigation }) {
         headers: headers,
         body: JSON.stringify(emp)
       }
-
-      await fetch(`${API_BASE_URL}/usuarios/${emp._id}`, requestOptions)
-        .then(response => { return response.json() })
+      fetch(`${API_BASE_URL}/usuarios/${emp._id}`, requestOptions)
+        .then(response  => {
+          if (response.ok) { return response.json() }}
+          )
         .catch(err => {
           console.error("Error en la comunicacion: ", err)
         })
