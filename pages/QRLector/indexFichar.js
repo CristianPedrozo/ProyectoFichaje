@@ -188,8 +188,8 @@ export default ({ navigation, route})=>{
         justifyContent: 'center',
         textAlign:'center'
       }}>
-      {(asis===null||ubicacion===null)&&<Text style={styles.cargando}>Cargando...</Text>}
-      {asis!=null&&ubicacion!=null&&<BarCodeScanner onBarCodeScanned={escaneo ? undefined : escanearQR} style={[StyleSheet.absoluteFill, styles.container]}>
+      {ubicacion===null&&<Text style={styles.cargando}>Cargando...</Text>}
+      {ubicacion!=null&&<BarCodeScanner onBarCodeScanned={escaneo ? undefined : escanearQR} style={[StyleSheet.absoluteFill, styles.container]}>
         <Image
           style={styles.qr}
           source={require('../../assets/recuadro.png')}
