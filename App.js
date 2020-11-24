@@ -18,6 +18,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./pages/login/index";
 import Asistencias from "./pages/asistencias";
+import AsistenciasEmployer from "./pages/AsistenciasEmployer";
 import QR from "./pages/QRLector/indexFichar";
 
 const Stack = createStackNavigator();
@@ -41,6 +42,7 @@ export default function App() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Asistencias" component={Asistencias} />
+      <Stack.Screen name="AsistenciasEmployer" component={AsistenciasEmployer} />
       <Stack.Screen name="indexFichar" component={QR} />
       <Stack.Screen name="ABM Empleados" component={CrudEmployees} />
       <Stack.Screen name="Create Employee" component={createEmployee} />

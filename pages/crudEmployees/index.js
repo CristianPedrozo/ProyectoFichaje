@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
 
+const API_BASE_URL = `https://tp2-nodejs.herokuapp.com/api/usuarios/institucion/`
+
 const Item = ({empleado, onPress, onPressLicense}) => {
 
     return (
@@ -24,13 +26,15 @@ const Item = ({empleado, onPress, onPressLicense}) => {
     )
 }
 
-export default function CrudEmployees({ navigation }) {
-
+export default function CrudEmployees({ route, navigation }) { 
+    const {admin} = route.params;
+    const institutionId = admin.institutionId;
     const [empleados, setEmpleados] = useState([]);
 
     useEffect(() => {
         // fetch('https://stark-atoll-54719.herokuapp.com/api/usuarios/') 
-        fetch('https://tp2-nodejs.herokuapp.com/api/usuarios')
+        // fetch(`${API_BASE_URL}`) //Lista todos  los usuarios
+        fetch(`${API_BASE_URL}${institutionId}`) //Lista usuarios por Institucion del Admin
             .then((response) => response.json())
             .then((json) => setEmpleados(json))
             .catch((error) => console.error('There has been a problem with your fetch operation: ' + error));
@@ -40,7 +44,7 @@ export default function CrudEmployees({ navigation }) {
 
         <ScrollView style={styles.container}>
             <Button title="Crear Empleado"
-                onPress={() => navigation.navigate("Create Employee")}
+                onPress={() => navigation.navigate("Create Employee",{institutionId:institutionId})}
             />
             <View style={styles.line} />
 
