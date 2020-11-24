@@ -72,7 +72,7 @@ export default function AsistenciasEmployer({ navigation, route }) {
     function procesarAsistencias(asistencias) {
         var fechaActual = obtenerFechaActual();
         asistencias.forEach(item => {
-            if(item.checkIn.includes(fechaActual) && item.checkOut == null && !asistentesActuales.includes(item.userId))
+            if(item.checkIn.includes(fechaActual) && item.checkOut === item.checkIn && !asistentesActuales.includes(item.userId))
             {
                 setAsistentesActuales(asistentesActuales => [...asistentesActuales, item.userId])
             }
