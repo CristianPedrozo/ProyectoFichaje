@@ -111,8 +111,6 @@ export default function Login({ navigation }) {
 
   function redireccionar(json) {
     if (json != undefined) {
-      /*   navigation.navigate("AsistenciasEmployer",
-            { data: json }) PARA TEST - Cristian*/
       if (json.isAdmin) {
         navigation.navigate("Employer",
           { data: json }
