@@ -40,11 +40,17 @@ export default function Employee({ navigation, route }) {
 
       <View style={styles.body}>
           <View style={styles.bodyLeft}>
+          {/* <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate("Form", { data }) }}>
+            <Image style={styles.icono} source={require('../../assets/images/icono_editar.jpg')} />
+          </TouchableOpacity> */}
+          </View>
+          <View style={styles.bodyRigth}><Row _id={data._id} empleado={data}/></View>
           <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate("Form", { data }) }}>
             <Image style={styles.icono} source={require('../../assets/images/icono_editar.jpg')} />
           </TouchableOpacity>
-          </View>
-          <View style={styles.bodyRigth}><Row _id={data._id} empleado={data}/></View>
+          <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate("ABM Licencias", { empleado:data }) }}>
+            <Image style={styles.iconoLicense} source={require('../../assets/images/icono_licencia.jpg')} />
+          </TouchableOpacity>
       </View>
 
 
@@ -130,5 +136,10 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 40,
+  },
+  iconoLicense: {
+    width: 48,
+    height: 48,
+    borderRadius: 48,
   },
 });
