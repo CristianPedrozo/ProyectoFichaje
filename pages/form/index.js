@@ -17,6 +17,7 @@ const modifyEmployee = ({route,navigation})=>{
     const [phone, setPhone] = useState(data.phone)
     const [email, setEmail] = useState(data.email)
     const [isAdmin, setisAdmin] = useState(data.isAdmin)
+    const [institutionId, setInstitutionId] = useState(data.institutionId)
 
     const emp = {
         _id:data._id,
@@ -32,6 +33,7 @@ const modifyEmployee = ({route,navigation})=>{
         jwt: null,
         imagePatch: null,
         isAdmin: isAdmin,
+        institutionId: institutionId,
     }
 
     function modify(){
