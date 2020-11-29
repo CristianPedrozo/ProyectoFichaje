@@ -96,7 +96,7 @@ const modifyEmployee = ({route,navigation})=>{
             console.error("Error en la comunicacion: ", err)
         })
 
-        navigation.navigate("ABM Empleados");
+        navigation.goBack();
     }
 
     return (
@@ -114,8 +114,8 @@ const modifyEmployee = ({route,navigation})=>{
                 <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Horario Entrada" onChangeText={setCheckIn}>{empleado.checkIn}</TextInput>
                 <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Horario Salida" onChangeText={setCheckOut}>{empleado.checkOut}</TextInput> 
                 <View style={styles.fixToText}>
-                    <Button title="Modificar" onPress={modify} disabled={!puedeEnviar}/>
-                    <Button title="Eliminar" onPress={deleted} />
+                    <Button color="#004b8d" title="Modificar" onPress={modify} disabled={!puedeEnviar}/>
+                    <Button color="#004b8d" title="Eliminar" onPress={deleted} />
                     
                     {/* // onPress={()=>Alert.alert(
                     //     'Confirmar',

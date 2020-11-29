@@ -47,7 +47,7 @@ const {institutionId}= route.params;
     useEffect( () => {
 
         validateEmail = (email) => {
-            var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
               return re.test(email);
           };
           
@@ -68,6 +68,7 @@ const {institutionId}= route.params;
 
         fetch(`${API_BASE_URL}/usuarios/`, requestOptions)
         .then(res => {
+            navigation.goBack();
             // console.log("Data antes de tratamiento: ", JSON.stringify(res))
             return res
         })
@@ -75,7 +76,8 @@ const {institutionId}= route.params;
             console.error("Error en la comunicacion: ", err)
         })
 
-        navigation.goBack();
+        // 
+        // navigation.navigate("ABM Empleados")
     }
 
     return (
