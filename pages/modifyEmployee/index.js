@@ -21,6 +21,7 @@ const modifyEmployee = ({route,navigation})=>{
     const [checkIn, setCheckIn] = useState(empleado.checkIn)
     const [checkOut, setCheckOut] = useState(empleado.checkOut)
     const [isAdmin, setisAdmin] = useState(empleado.isAdmin)
+    const [puedeEnviar, setPuedeEnviar] = useState(false)
  
     const emp = {
         _id:empleado._id,
@@ -39,6 +40,19 @@ const modifyEmployee = ({route,navigation})=>{
         checkIn: parseInt(checkIn),
         checkOut: parseInt(checkOut)
     }
+
+    
+    // Validacion de botón Modificar empleado
+    useEffect( () => {
+
+        validateEmail = (email) => {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+              return re.test(email);
+          };
+          
+        setPuedeEnviar(first.length > 0 && last.length > 0 && validateEmail(email))
+        
+    }, [first, last, email])
 
     function modify(){
         const headers = new Headers();
@@ -100,7 +114,7 @@ const modifyEmployee = ({route,navigation})=>{
                 <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Horario Entrada" onChangeText={setCheckIn}>{empleado.checkIn}</TextInput>
                 <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Horario Salida" onChangeText={setCheckOut}>{empleado.checkOut}</TextInput> 
                 <View style={styles.fixToText}>
-                    <Button title="Modificar" onPress={modify} />
+                    <Button title="Modificar" onPress={modify} disabled={!puedeEnviar}/>
                     <Button title="Eliminar" onPress={deleted} />
                     
                     {/* // onPress={()=>Alert.alert(
