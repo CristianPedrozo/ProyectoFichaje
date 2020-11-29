@@ -131,7 +131,4 @@ const styles = StyleSheet.create({
         height:90,
         backgroundColor:'#004b8d'  
     },
-    buttonBlue:{
-        color:'#004b8d'
-    }
 });
