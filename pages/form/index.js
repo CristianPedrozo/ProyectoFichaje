@@ -17,6 +17,7 @@ const modifyEmployee = ({route,navigation})=>{
     const [phone, setPhone] = useState(data.phone)
     const [email, setEmail] = useState(data.email)
     const [isAdmin, setisAdmin] = useState(data.isAdmin)
+    const [institutionId, setInstitutionId] = useState(data.institutionId)
 
     const emp = {
         _id:data._id,
@@ -32,6 +33,7 @@ const modifyEmployee = ({route,navigation})=>{
         jwt: null,
         imagePatch: null,
         isAdmin: isAdmin,
+        institutionId: institutionId,
     }
 
     function modify(){
@@ -62,8 +64,8 @@ const modifyEmployee = ({route,navigation})=>{
         <View style={styles.container}> 
             <View>
                 <Text style={styles.textTitle}>Datos personales</Text>
-                <TextInput style={styles.input} placeholder ="Nombres" onChangeText={setFirst} >{data.name.first}</TextInput>
-                <TextInput style={styles.input} placeholder ="Apellidos" onChangeText={setLast} >{data.name.last}</TextInput>
+                <TextInput style={styles.input} placeholder ="Nombres" editable={false} onChangeText={setFirst} >{data.name.first}</TextInput>
+                <TextInput style={styles.input} placeholder ="Apellidos" editable={false} onChangeText={setLast} >{data.name.last}</TextInput>
                 <TextInput style={styles.input} placeholder ="Email" onChangeText={setEmail}>{data.email}</TextInput>
                 <TextInput style={styles.input} placeholder ="Calle" onChangeText={setStreet}>{data.adress.street}</TextInput>
                 <TextInput style={styles.input} placeholder ="Número" onChangeText={setNumber} >{data.adress.number}</TextInput>

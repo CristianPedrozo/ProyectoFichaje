@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import * as SecureStore from 'expo-secure-store';
 import { color } from 'react-native-reanimated';
+import SignIn from "../../assets/images/ContinuarGoogle.png";
+import Logo from "../../assets/images/logoAzulConNombre.png";
 
 export default function Login({ navigation }) {
   //const { nombre } = route.params
@@ -149,17 +151,24 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>Ingresa a la app fichaje</Text>
-      <Button style={styles.Button} title="Ingresar" onPress={() => { login() }} />
+      {/* <Text style ={styles.namePage}>Fichaje</Text> */}
+      {/* <Button style={styles.Button} title="Ingresar" onPress={() => { login() }} /> */}
+        <View style={styles.itemLogo}>
+          <Image style={styles.logo} source= {Logo} />
+        </View>
+      <TouchableOpacity onPress={() => { login() }}>
+        <View style={styles.view}>
+          <Image source= {SignIn} />
+        </View>
+      </TouchableOpacity>
       {
         emailLogeado != null ?
-          <Button title="Deslogearse" onPress={() => { limpiarEmail() }}></Button> : null
+          // <Button title="Deslogearse" onPress={() => { limpiarEmail() }}></Button> : null
+          <Text style={styles.link} onPress={() => { limpiarEmail() }}>Salir</Text> : null
       }
     </View>
   );
 }
-
-
 
 
 const styles = StyleSheet.create({
@@ -170,12 +179,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
   },
-  Text: {
-
-
-  },
   Button: {
     backgroundColor: '#9966cc',
     color: '#9966cc'
   },
+
+  link:{
+    marginTop:20,
+    textDecorationLine: 'underline',
+    color:'#004b8d',
+    fontSize: 16,
+  },
+  itemLogo:{
+    flex:.3,
+    marginTop: 20,
+    marginBottom:80,
+    width: 140,
+    height: 140,
+    alignItems: 'center',
+  },
+  logo:{
+    resizeMode:"contain",
+  }
 });

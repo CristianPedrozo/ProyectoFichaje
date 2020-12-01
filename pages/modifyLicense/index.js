@@ -41,7 +41,7 @@ export default function modifyLicense({ route,navigation }) {
         })
         navigation.navigate("ABM Licencias");
     }
-//Paraeliminar
+//Para eliminar
     function deleted(){
         const headers = new Headers();
         headers.append("Content-type", "application/json")

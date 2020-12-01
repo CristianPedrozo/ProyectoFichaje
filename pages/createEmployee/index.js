@@ -23,6 +23,7 @@ const {institutionId}= route.params;
     const [email, setEmail] = useState("")
     const [checkIn, setCheckIn] = useState(0)
     const [checkOut, setCheckOut] = useState(0)
+    const [puedeEnviar, setPuedeEnviar] = useState(false)
  
     const emp = {
         name: { first: first, last: last },
@@ -42,6 +43,18 @@ const {institutionId}= route.params;
         institutionId: institutionId
     }
 
+    // Validacion de boton Crear empleado
+    useEffect( () => {
+
+        validateEmail = (email) => {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+              return re.test(email);
+          };
+          
+        setPuedeEnviar(first.length > 0 && last.length > 0 && validateEmail(email))
+        
+    }, [first, last, email])
+
     function create(){
         const headers = new Headers();
         // console.log(emp);
@@ -55,6 +68,7 @@ const {institutionId}= route.params;
 
         fetch(`${API_BASE_URL}/usuarios/`, requestOptions)
         .then(res => {
+            navigation.goBack();
             // console.log("Data antes de tratamiento: ", JSON.stringify(res))
             return res
         })
@@ -62,7 +76,8 @@ const {institutionId}= route.params;
             console.error("Error en la comunicacion: ", err)
         })
 
-        navigation.goBack();
+        // 
+        // navigation.navigate("ABM Empleados")
     }
 
     return (
@@ -79,7 +94,7 @@ const {institutionId}= route.params;
             <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Telefono" onChangeText={setPhone}></TextInput>
             <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Horario Entrada" onChangeText={setCheckIn}></TextInput>
             <TextInput style={styles.input} keyboardType = "numeric" placeholder ="Horario Salida" onChangeText={setCheckOut}></TextInput>
-            <Button title="Crear Empleado" onPress={create}/>
+            <Button color="#004b8d" title="Crear Empleado" onPress={create} disabled={!puedeEnviar}/>
             </View>
         </View>
         </ScrollView>
