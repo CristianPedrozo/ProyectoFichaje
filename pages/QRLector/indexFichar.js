@@ -18,6 +18,7 @@ export default ({ navigation, route})=>{
   const { data } = route.params
   const usuario = data
   const userID = usuario._id
+  const tokenUser = usuario._jwt
   let estatus;
   
   const obtenerPermisoCamara = async () => {
@@ -67,7 +68,7 @@ export default ({ navigation, route})=>{
   async function impactarAsistencia(metodo,asisten,token){
     const headers = new Headers();
     headers.append("Content-type", "application/json");
-    headers.append('token_qr', token);
+    headers.append('jwt', token);
     const requestOptions = {
       method: metodo,
       headers: headers,
@@ -109,8 +110,10 @@ export default ({ navigation, route})=>{
           checkIn:asis.checkIn,
           checkOut:new Date().toISOString(),
           userId:userID,
-          _id:asis._id
+          _id:asis._id,
+          _jwt:tokenUser
         };
+        console.log(asistenciaAux);
         estatus=await impactarAsistencia('PUT',asistenciaAux,token);
         await setAsis(estatus);
       }else{
@@ -118,9 +121,11 @@ export default ({ navigation, route})=>{
         let asistenciaAux={
           checkIn:fechaAux,
           checkOut:fechaAux,
-          userId:userID
+          userId:userID,
+          _jwt:tokenUser
         };
         console.log(asis)
+        console.log(asistenciaAux);
         estatus = await impactarAsistencia('POST',asistenciaAux,token);
         console.log(estatus);
         await setAsis(estatus);
@@ -145,6 +150,7 @@ export default ({ navigation, route})=>{
       console.log(error);
     }
   };
+
   async function obtenerUbicacionORT (){
     let result;
     try {
